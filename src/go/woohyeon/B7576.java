@@ -4,6 +4,7 @@ package go.woohyeon;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -73,5 +74,12 @@ public class B7576 {
 			this.status = status;
 			this.day = day;
 		}
+
+		@Override
+		public String toString() {
+			return  status + "";
+		}
+		
+		
 	}
 }
