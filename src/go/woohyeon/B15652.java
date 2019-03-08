@@ -12,21 +12,20 @@ public class B15652 {
 		N = sc.nextInt();
 		M = sc.nextInt();
 		
-		permutation(0);
+		permutation(0, 1);
 	}
 
-	private static void permutation(int index) {
+	private static void permutation(int index, int start) {
 		
 		if(index == M) {
 			System.out.println(sb.toString());
 			return;
 		}
 		
-		for(int i = 1 ; i <= N ; ++i) {
+		for(int i = start ; i <= N ; ++i) {
 			sb.append(i + " ");
-			permutation(index + 1);
-			sb.deleteCharAt(sb.length() - 1);
-			sb.deleteCharAt(sb.length() - 1);
+			permutation(index + 1, i);
+			sb.delete(sb.length() - 2, sb.length());
 		}
 	}
 }
