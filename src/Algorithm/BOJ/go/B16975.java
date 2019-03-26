@@ -1,14 +1,14 @@
 package Algorithm.BOJ.go;
 
-import java.util.LinkedList;
+import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Scanner;
 
 public class B16975 {
 	
 	static Cell[][] board;
-	static Queue<Cell> q = new LinkedList <Cell>();
-	static int[][] dir = {{-1, 0 }, {-1, 1}, {0, 1}, {1, 1}, {1, 0}, {-1, 1}, {0, -1}, {-1, -1}};
+	static Queue<Cell> q = new PriorityQueue<Cell>();
+	static int[][] dir = {{-1, 0 }, {-1, 1}, {0, 1}, {1, 1}, {1, 0}, {1, -1}, {0, -1}, {-1, -1}};
 	static int R, C;
 	
 	public static void main(String[] args) {
@@ -21,17 +21,11 @@ public class B16975 {
 		for(int r = 0 ; r < R ; ++r) {
 			for(int c = 0 ; c < C ; ++c) {
 				board[r][c] = new Cell(r, c, sc.nextInt(), 1);
+				q.offer(board[r][c]);
 			}
 		}
 		
-		for(int r = 0 ; r < R ; ++r) {
-			for(int c = 0 ; c < C ; ++c) {
-				if(board[r][c].value != 0) {
-					q.offer(board[r][c]);
-					bfs();
-				}
-			}
-		}
+		bfs();
 		
 		for(int r = 0 ; r < R ; ++r) {
 			for(int c = 0 ; c < C ; ++c) {
@@ -47,36 +41,31 @@ public class B16975 {
 	
 	private static void bfs() {
 		
-		int nextR, nextC;
-		int minVal;
-		Cell minCell;
-		
 		while(!q.isEmpty()) {
 			Cell c = q.poll();
-			minVal = Integer.MAX_VALUE;
-			minCell = null;
 			
+			int min = c.value;
+			int tr = 0, tc = 0;
+			int nr, nc;
 			for(int i = 0 ; i < 8 ; ++i) {
-				nextR = c.row + dir[i][0];
-				nextC = c.col + dir[i][1];
-				if(nextR >= 0 && nextR < R && nextC >= 0 && nextC < C) {
-					Cell temp = board[nextR][nextC];
-					if(minVal > temp.value) {
-						minVal = temp.value;
-						minCell = temp;
-					}
+				nr = c.row + dir[i][0];
+				nc = c.col + dir[i][1];
+				
+				if(nr >= R || nr < 0 || nc >= C || nc < 0) continue;
+				if(min > board[nr][nc].value) {
+					min = board[nr][nc].value;
+					tr = nr;
+					tc = nc;
 				}
 			}
-			if(c.value < minVal) return;
-			else {
-				c.ballCnt--;
-				minCell.ballCnt++;
-				q.offer(minCell);
+			if(min != c.value) {
+				board[tr][tc].ballCnt += c.ballCnt;
+				c.ballCnt = 0;
 			}
-		}
+		} 
 	}
 
-	static class Cell{
+	static class Cell implements Comparable<Cell>{
 		int row, col, value, ballCnt;
 
 		public Cell(int row, int col, int value, int ballCnt) {
@@ -90,6 +79,11 @@ public class B16975 {
 		@Override
 		public String toString() {
 			return ballCnt + "";
+		}
+
+		@Override
+		public int compareTo(Cell o) {
+			return -(this.value - o.value);
 		}
 		
 		
