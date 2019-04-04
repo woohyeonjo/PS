@@ -84,10 +84,9 @@ public class J1082 {
 					if(map[nr][nc].type == '*' || visited[nr][nc]) continue;
 					visited[nr][nc] = true;
 					q.offer(new Cell(nr, nc, map[nr][nc].type, cell.time + 1));
-//					System.out.println(nr + "," + nc);
 				}
 			}
 		}
-		ans = "impossible";
+		ans = "KAKTUS";
 	}
 }
