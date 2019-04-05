@@ -1,49 +1,40 @@
 package Algorithm.JUNGOL.go;
 
-import java.util.ArrayList;
-import java.util.Scanner;
-import java.util.TreeSet;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class J2577 {
 	static int[] table;
-	static TreeSet<Integer> set;
-	static ArrayList<Integer> cIdx;
+	static int[] counts;
+	static int cnt;
 	static int N, D, K, C, ans;
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
-		N = sc.nextInt();
-		D = sc.nextInt();
-		K = sc.nextInt();
-		C = sc.nextInt();
+	public static void main(String[] args) throws IOException {
+		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+		String[] line = in.readLine().split(" ");
+		N = Integer.parseInt(line[0]);
+		D = Integer.parseInt(line[1]);
+		K = Integer.parseInt(line[2]);
+		C = Integer.parseInt(line[3]);
 		
 		table = new int[N];
-		cIdx = new ArrayList<Integer>();
-		set = new TreeSet<Integer>();
-		ans = 0;
+		counts = new int[D + 1];
 		
 		for(int i = 0 ; i < N ; ++i) {
-			table[i] = sc.nextInt();
-			if(table[i] == C) cIdx.add(i);
+			table[i] = Integer.parseInt(in.readLine());
 		}
 		
-		int idx = N - 1;
-		int idx2 = 1;
-		for(int c = 0 ; c < cIdx.size() ; ++c) {
-			while(K > 0) {
-				if(cIdx.get(c) - idx2 < 0) {
-					set.add(table[idx]);
-					idx--;
-					K--;
-				} else {
-					set.add(table[cIdx.get(c) - idx2]);
-					idx2++;
-					K--;
-				}
-			}
-			System.out.println(set);
-			if(set.contains(C)) ans = Math.max(ans, set.size());
-			else ans = Math.max(ans, set.size() + 1);
-			set.clear();
+		cnt = 1;
+		counts[C]++;
+		for(int i = 0 ; i < K ; ++i) {
+			if(counts[table[i]]++ == 0) cnt++;
+		}
+		ans = cnt;
+		
+		for(int i = K ; i < N + K ; ++i) {
+			if(--counts[table[i - K]] == 0) cnt--;
+			if(counts[table[i % N]]++ == 0) cnt++;
+			if(cnt > ans)ans = cnt;
 		}
 		System.out.println(ans);
 	}
