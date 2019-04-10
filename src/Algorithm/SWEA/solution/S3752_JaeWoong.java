@@ -2,7 +2,7 @@ package Algorithm.SWEA.solution;
 
 import java.util.Scanner;
 
-public class D4_3752_가능한시험점수_김재웅
+public class S3752_JaeWoong
 {
 	static int T, N;
 	static char[][] a = new char[100][100];

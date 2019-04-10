@@ -2,7 +2,7 @@ package Algorithm.SWEA.solution;
 
 import java.util.Scanner;
 
-public class D4_3752_가능한시험점수_이현정 {
+public class S3752_HyeonJeong {
 
 	static int N,answer;
 	static int[] score; 

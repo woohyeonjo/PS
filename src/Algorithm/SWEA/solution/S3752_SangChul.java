@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.*;
  
-public class D4_3752_가능한시험점수_이상철{
+public class S3752_SangChul{
     private static int n, ans;
     private static int[] arr;
     private static int[][] chk;
