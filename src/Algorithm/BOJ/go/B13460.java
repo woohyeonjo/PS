@@ -1,29 +1,19 @@
 package Algorithm.BOJ.go;
 
-import java.util.LinkedList;
-import java.util.Queue;
 import java.util.Scanner;
 
 public class B13460 {
 	static char[][] map;
-	static int[][] dir = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
-	static boolean[][][] visited;
-	static Queue<Ball> q;
-	static int N, M, cnt;
-	static boolean isGoal;
-	static class Ball{
-		int br, bc, rr, rc;
+//	static boolean[][][] visited;
+	static int N, M, ans;
+	static boolean fail, success;
+	static Ball pBall;
+	static class Ball {
+		int rr, rc, br, bc;
 
 		public Ball() {}
-		
-		public Ball(int br, int bc, int rr, int rc) {
-			super();
-			this.br = br;
-			this.bc = bc;
-			this.rr = rr;
-			this.rc = rc;
-		}
 	}
+	
 	public static void main(String[] args) {
 		
 		Scanner sc = new Scanner(System.in);
@@ -32,168 +22,435 @@ public class B13460 {
 		M = sc.nextInt();
 		
 		map = new char[N][M];
-		visited = new boolean[N][M][2];
-		q = new LinkedList<Ball>();
-		cnt = 1;
-		
-		Ball start = new Ball();
+//		visited = new boolean[N][M][2];
+		pBall = new Ball();
+		ans = 11;
 		
 		for(int r = 0 ; r < N ; ++r) {
 			char[] line = sc.next().toCharArray();
 			for(int c = 0 ; c < M; ++c) {
 				map[r][c] = line[c];
 				if(line[c] == 'R') {
-					start.rr = r;
-					start.rc = c;
+					pBall.rr = r;
+					pBall.rc = c;
 				}
 				if(line[c] == 'B') {
-					start.br = r;
-					start.bc = c;
+					pBall.br = r;
+					pBall.bc = c;
 				}
 			}
 		}
-		visited[start.rr][start.rc][0] = true;
-		visited[start.br][start.bc][1] = true;
-		q.offer(start);
+//		visited[pBall.rr][pBall.rc][0] = true;
+//		visited[pBall.br][pBall.bc][1] = true;
+		dfs(map, 1, pBall.rr, pBall.rc, pBall.br, pBall.bc);
+		if(ans > 10) ans = -1;
+		System.out.println(ans);
+	}
+
+	private static void dfs(char[][] cmap, int cnt, int beforeRR, int beforeRC, int beforeBR, int beforeBC) {
 		
-		bfs();
-		System.out.println(cnt);
+		if(cnt == 10) {
+			return;
+		}
+		
+		for(int i = 0 ; i < 4 ; ++i) {
+			char[][] nmap = copyMap(cmap);
+			moveBall(nmap, i, beforeRR, beforeRC, beforeBR, beforeBC);
+			if(success) {
+				success = false;
+				if(fail) {
+					fail = false;
+					return;
+				}
+				
+				pringMap(nmap);
+				pBall.rr = beforeRR;
+				pBall.rc = beforeRC;
+				pBall.br = beforeBR;
+				pBall.bc = beforeBC;
+				nmap[pBall.rr][pBall.rc] = 'O';
+				ans = ans > cnt ? cnt : ans;
+				return;
+			}
+			if(fail) {
+				fail = false;
+				continue;
+			}
+//			if(!visited[pBall.rr][pBall.rc][0]) {
+				if(beforeRR == pBall.rr && beforeRC == pBall.rc && beforeBR == pBall.br && beforeBC == pBall.bc) continue;
+//				visited[pBall.rr][pBall.rc][0] = true;
+//				visited[pBall.br][pBall.bc][1] = true;
+				
+				dfs(nmap, cnt + 1, pBall.rr, pBall.rc, pBall.br, pBall.bc);
+//				visited[pBall.rr][pBall.rc][0] = false;
+//				visited[pBall.br][pBall.bc][1] = false;
+//			}
+		}
 		
 	}
-	
-	private static void redFirst(int i, Ball nextBall, int rnr, int rnc, int bnr, int bnc) {
-		boolean stuck = false;
-		// »¡°­¸ÕÀú ±¼¸®±â
+
+	private static void moveBall(char[][] cmap, int i, int beforeRR, int beforeRC, int beforeBR, int beforeBC) {
+		int rr, rc, nrr = beforeRR, nrc = beforeRC;
+		int br, bc, nbr = beforeBR, nbc = beforeBC;
 		
-		while(!stuck) {
-			rnr = nextBall.rr + dir[i][0];
-			rnc = nextBall.rc + dir[i][1];
-			if(map[rnr][rnc] == '#') {
-				stuck = true;
-			} else if(map[rnr][rnc] == 'O') {
-				isGoal = true;
-				return;
-			} else if(map[rnr][rnc] == '.') {
-				nextBall.rr = rnr;
-				nextBall.rc = rnc;
-			} 
-		}
-		stuck = false;
-		while(!stuck) {
-			bnr = nextBall.br + dir[i][0];
-			bnc = nextBall.bc + dir[i][1];
-			if(map[bnr][bnc] == '#' || map[bnr][bnc] == 'R') {
-				stuck = true;
-			} else if(map[bnr][bnc] == 'O') {
-				cnt = -1;
-				return;
-			} else if(map[bnr][bnc] == '.') {
-				nextBall.br = bnr;
-				nextBall.bc = bnc;
-			} 
-		}
-	}
-	
-	private static void blueFirst(int i, Ball nextBall, int rnr, int rnc, int bnr, int bnc) {
-		boolean stuck = false;
-		// ÆÄ¶û¸ÕÀú ±¼¸®±â
-		
-		while(!stuck) {
-			bnr = nextBall.br + dir[i][0];
-			bnc = nextBall.bc + dir[i][1];
-			if(map[bnr][bnc] == '#') {
-				stuck = true;
-			} else if(map[bnr][bnc] == 'O') {
-				cnt = -1;
-				return;
-			} else if(map[bnr][bnc] == '.') {
-				nextBall.br = bnr;
-				nextBall.bc = bnc;
-			} 
-		}
-		stuck = false;
-		while(!stuck) {
-			rnr = nextBall.rr + dir[i][0];
-			rnc = nextBall.rc + dir[i][1];
-			if(map[rnr][rnc] == '#' || map[rnr][rnc] == 'B') {
-				stuck = true;
-			} else if(map[rnr][rnc] == 'O') {
-				isGoal = true;
-				return;
-			} else if(map[rnr][rnc] == '.') {
-				nextBall.rr = rnr;
-				nextBall.rc = rnc;
-			} 
-		}
-	}
-	
-	
-	private static void bfs() {
-		
-		int rnr = 0, rnc = 0, bnr = 0, bnc = 0;
-		while(!q.isEmpty()) {
-			Ball ball = q.poll();
-			for(int i = 0 ; i < 4 ; ++i) {
-				Ball nextBall = new Ball(ball.br, ball.bc, ball.rr, ball.rc);
-				//À§
-				if(i == 0) {
-					if(ball.rr > ball.br) {
-						blueFirst(i, nextBall, rnr, rnc, bnr, bnc);
-					} else {
-						redFirst(i, nextBall, rnr, rnc, bnr, bnc);
+		switch(i) {
+		case 0:
+			if(beforeRR > beforeBR) {
+				// íŒŒ ë¹¨
+				while(true) {
+					br = nbr;
+					nbr -= 1;
+					
+					if(cmap[nbr][nbc] == '.') {
+						continue;
+					} else if (cmap[nbr][nbc] == '#') {
+						cmap[beforeBR][beforeBC] = '.';
+						cmap[br][nbc] = 'B';
+						pBall.br = br;
+						pBall.bc = beforeBC;
+						break;
+					} else if (cmap[nbr][nbc] == 'O') {
+						pBall.br = nbr;
+						pBall.bc = nbc;
+						fail = true;
+						return;
 					}
-					if(isGoal) return;
-					if(ball.rr != nextBall.rr || ball.rc != nextBall.rc || ball.br != nextBall.br || ball.bc != nextBall.bc) {
-						q.offer(nextBall);
-						visited[start.rr][start.rc][0] = true;
-						visited[start.br][start.bc][1] = true;
+				}
+				while(true) {
+					rr = nrr;
+					nrr -= 1;
+					
+					if(cmap[nrr][nrc] == '.') {
+						continue;
+					} else if (cmap[nrr][nrc] == '#' || cmap[nrr][nrc] == 'B') {
+						cmap[beforeRR][beforeRC] = '.';
+						cmap[rr][nrc] = 'R';
+						pBall.rr = rr;
+						pBall.rc = beforeRC;
+						break;
+					} else if (cmap[nrr][nrc] == 'O') {
+						pBall.rr = nrr;
+						pBall.rc = nrc;
+						success = true;
+						return;
 					}
 				}
 				
-				// ¾Æ·¡
-				if(i == 1) {
-					if(ball.rr > ball.br) {
-						blueFirst(i, nextBall, rnr, rnc, bnr, bnc);
-					} else {
-						redFirst(i, nextBall, rnr, rnc, bnr, bnc);
-					}
-					if(isGoal) return;
-					if(ball.rr != nextBall.rr || ball.rc != nextBall.rc || ball.br != nextBall.br || ball.bc != nextBall.bc) {
-						q.offer(nextBall);
-					}
-				}
-				
-				// ¿Þ
-				if(i == 2) {
-					if(ball.rc > ball.bc) {
-						blueFirst(i, nextBall, rnr, rnc, bnr, bnc);
-					} else {
-						redFirst(i, nextBall, rnr, rnc, bnr, bnc);
-					}
-					if(isGoal) return;
-					if(ball.rr != nextBall.rr || ball.rc != nextBall.rc || ball.br != nextBall.br || ball.bc != nextBall.bc) {
-						q.offer(nextBall);
+			} else {
+				// ë¹¨ íŒŒ
+				while(true) {
+					rr = nrr;
+					nrr -= 1;
+					
+					if(cmap[nrr][nrc] == '.') {
+						continue;
+					} else if (cmap[nrr][nrc] == '#') {
+						cmap[beforeRR][beforeRC] = '.';
+						cmap[rr][nrc] = 'R';
+						pBall.rr = rr;
+						pBall.rc = beforeRC;
+						break;
+					} else if (cmap[nrr][nrc] == 'O') {
+						cmap[beforeRR][beforeRC] = '.';
+						pBall.rr = nrr;
+						pBall.rc = nrc;
+						success = true;
 					}
 				}
-				
-				// ¿À¸¥
-				if(i == 3) {
-					if(ball.rc < ball.bc) {
-						blueFirst(i, nextBall, rnr, rnc, bnr, bnc);
-					} else {
-						redFirst(i, nextBall, rnr, rnc, bnr, bnc);
-					}
-					if(isGoal) return;
-					if(ball.rr != nextBall.rr || ball.rc != nextBall.rc || ball.br != nextBall.br || ball.bc != nextBall.bc) {
-						q.offer(nextBall);
+				while(true) {
+					br = nbr;
+					nbr -= 1;
+					
+					if(cmap[nbr][nbc] == '.') {
+						continue;
+					} else if (cmap[nbr][nbc] == '#' || cmap[nbr][nbc] == 'R') {
+						cmap[beforeBR][beforeBC] = '.';
+						cmap[br][nbc] = 'B';
+						pBall.br = br;
+						pBall.bc = beforeBC;
+						break;
+					} else if (cmap[nbr][nbc] == 'O') {
+						pBall.br = nbr;
+						pBall.bc = nbc;
+						fail = true;
+						return;
 					}
 				}
 			}
-			cnt++;
-			if(cnt >= 10) {
-				cnt = -1;
-				return;
+			break;
+		case 1:
+			if(beforeRR < beforeBR) {
+				// íŒŒ ë¹¨
+				while(true) {
+					br = nbr;
+					nbr += 1;
+					
+					if(cmap[nbr][nbc] == '.') {
+						continue;
+					} else if (cmap[nbr][nbc] == '#') {
+						cmap[beforeBR][beforeBC] = '.';
+						cmap[br][nbc] = 'B';
+						pBall.br = br;
+						pBall.bc = beforeBC;
+						break;
+					} else if (cmap[nbr][nbc] == 'O') {
+						pBall.br = nbr;
+						pBall.bc = nbc;
+						fail = true;
+						return;
+					}
+				}
+				while(true) {
+					rr = nrr;
+					nrr += 1;
+					
+					if(cmap[nrr][nrc] == '.') {
+						continue;
+					} else if (cmap[nrr][nrc] == '#' || cmap[nrr][nrc] == 'B') {
+						cmap[beforeRR][beforeRC] = '.';
+						cmap[rr][nrc] = 'R';
+						pBall.rr = rr;
+						pBall.rc = beforeRC;
+						break;
+					} else if (cmap[nrr][nrc] == 'O') {
+						pBall.rr = nrr;
+						pBall.rc = nrc;
+						success = true;
+						return;
+					}
+				}
+				
+			} else {
+				// ë¹¨ íŒŒ
+				while(true) {
+					rr = nrr;
+					nrr += 1;
+					
+					if(cmap[nrr][nrc] == '.') {
+						continue;
+					} else if (cmap[nrr][nrc] == '#') {
+						cmap[beforeRR][beforeRC] = '.';
+						cmap[rr][nrc] = 'R';
+						pBall.rr = rr;
+						pBall.rc = beforeRC;
+						break;
+					} else if (cmap[nrr][nrc] == 'O') {
+						cmap[beforeRR][beforeRC] = '.';
+						pBall.rr = nrr;
+						pBall.rc = nrc;
+						success = true;
+					}
+				}
+				while(true) {
+					br = nbr;
+					nbr += 1;
+					
+					if(cmap[nbr][nbc] == '.') {
+						continue;
+					} else if (cmap[nbr][nbc] == '#' || cmap[nbr][nbc] == 'R') {
+						cmap[beforeBR][beforeBC] = '.';
+						cmap[br][nbc] = 'B';
+						pBall.br = br;
+						pBall.bc = beforeBC;
+						break;
+					} else if (cmap[nbr][nbc] == 'O') {
+						pBall.br = nbr;
+						pBall.bc = nbc;
+						fail = true;
+						return;
+					}
+				}
+			}
+			break;
+		case 2:
+			if(beforeRC > beforeBC) {
+				// íŒŒ ë¹¨
+				while(true) {
+					bc = nbc;
+					nbc -= 1;
+					
+					if(cmap[nbr][nbc] == '.') {
+						continue;
+					} else if (cmap[nbr][nbc] == '#') {
+						cmap[beforeBR][beforeBC] = '.';
+						cmap[nbr][bc] = 'B';
+						pBall.br = beforeBR;
+						pBall.bc = bc;
+						break;
+					} else if (cmap[nbr][nbc] == 'O') {
+						pBall.br = nbr;
+						pBall.bc = nbc;
+						fail = true;
+						return;
+					}
+				}
+				while(true) {
+					rc = nrc;
+					nrc -= 1;
+					
+					if(cmap[nrr][nrc] == '.') {
+						continue;
+					} else if (cmap[nrr][nrc] == '#' || cmap[nrr][nrc] == 'B') {
+						cmap[beforeRR][beforeRC] = '.';
+						cmap[nrr][rc] = 'R';
+						pBall.rr = beforeRR;
+						pBall.rc = rc;
+						break;
+					} else if (cmap[nrr][nrc] == 'O') {
+						pBall.rr = nrr;
+						pBall.rc = nrc;
+						success = true;
+						return;
+					}
+				}
+				
+			} else {
+				// ë¹¨ íŒŒ
+				while(true) {
+					rc = nrc;
+					nrc -= 1;
+					
+					if(cmap[nrr][nrc] == '.') {
+						continue;
+					} else if (cmap[nrr][nrc] == '#') {
+						cmap[beforeRR][beforeRC] = '.';
+						cmap[nrr][rc] = 'R';
+						pBall.rr = beforeRR;
+						pBall.rc = rc;
+						break;
+					} else if (cmap[nrr][nrc] == 'O') {
+						cmap[beforeRR][beforeRC] = '.';
+						pBall.rr = nrr;
+						pBall.rc = nrc;
+						success = true;
+					}
+				}
+				while(true) {
+					bc = nbc;
+					nbc -= 1;
+					
+					if(cmap[nbr][nbc] == '.') {
+						continue;
+					} else if (cmap[nbr][nbc] == '#' || cmap[nbr][nbc] == 'R') {
+						cmap[beforeBR][beforeBC] = '.';
+						cmap[nbr][bc] = 'B';
+						pBall.br = beforeBR;
+						pBall.bc = bc;
+						break;
+					} else if (cmap[nbr][nbc] == 'O') {
+						pBall.br = nbr;
+						pBall.bc = nbc;
+						fail = true;
+						return;
+					}
+				}
+			}
+			break;
+		case 3:
+			if(beforeRC < beforeBC) {
+				// íŒŒ ë¹¨
+				while(true) {
+					bc = nbc;
+					nbc += 1;
+					
+					if(cmap[nbr][nbc] == '.') {
+						continue;
+					} else if (cmap[nbr][nbc] == '#') {
+						cmap[beforeBR][beforeBC] = '.';
+						cmap[nbr][bc] = 'B';
+						pBall.br = beforeBR;
+						pBall.bc = bc;
+						break;
+					} else if (cmap[nbr][nbc] == 'O') {
+						pBall.br = nbr;
+						pBall.bc = nbc;
+						fail = true;
+						return;
+					}
+				}
+				while(true) {
+					rc = nrc;
+					nrc += 1;
+					
+					if(cmap[nrr][nrc] == '.') {
+						continue;
+					} else if (cmap[nrr][nrc] == '#' || cmap[nrr][nrc] == 'B') {
+						cmap[beforeRR][beforeRC] = '.';
+						cmap[nrr][rc] = 'R';
+						pBall.rr = beforeRR;
+						pBall.rc = rc;
+						break;
+					} else if (cmap[nrr][nrc] == 'O') {
+						pBall.rr = nrr;
+						pBall.rc = nrc;
+						success = true;
+						return;
+					}
+				}
+				
+			} else {
+				// ë¹¨ íŒŒ
+				while(true) {
+					rc = nrc;
+					nrc += 1;
+					
+					if(cmap[nrr][nrc] == '.') {
+						continue;
+					} else if (cmap[nrr][nrc] == '#') {
+						cmap[beforeRR][beforeRC] = '.';
+						cmap[nrr][rc] = 'R';
+						pBall.rr = beforeRR;
+						pBall.rc = rc;
+						break;
+					} else if (cmap[nrr][nrc] == 'O') {
+						cmap[beforeRR][beforeRC] = '.';
+						pBall.rr = nrr;
+						pBall.rc = nrc;
+						success = true;
+					}
+				}
+				while(true) {
+					bc = nbc;
+					nbc += 1;
+					
+					if(cmap[nbr][nbc] == '.') {
+						continue;
+					} else if (cmap[nbr][nbc] == '#' || cmap[nbr][nbc] == 'R') {
+						cmap[beforeBR][beforeBC] = '.';
+						cmap[nbr][bc] = 'B';
+						pBall.br = beforeBR;
+						pBall.bc = bc;
+						break;
+					} else if (cmap[nbr][nbc] == 'O') {
+						pBall.br = nbr;
+						pBall.bc = nbc;
+						fail = true;
+						return;
+					}
+				}
+			}
+			break;
+		}
+		
+		
+	}
+
+	private static char[][] copyMap(char[][] cmap) {
+		char[][] result = new char[N][M];
+		
+		for(int i = 0 ; i < N ; ++i) {
+			result[i] = cmap[i].clone();
+		}
+		return result;
+	}
+	
+	private static void pringMap(char[][] cmap) {
+		for(int r = 0 ; r < N ; ++r) {
+			System.out.println();
+			for(int c = 0 ; c < M; ++c) {
+				System.out.print(" " + cmap[r][c]);
 			}
 		}
+		System.out.println();
 	}
 }

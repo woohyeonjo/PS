@@ -7,8 +7,9 @@ import java.util.ArrayList;
 
 public class B14889 {
 	static int[][] map;
-	static ArrayList<Integer> start;
-	static ArrayList<Integer> link;
+	static boolean[] visited;
+	static int[] start;
+	static int[] link;
 	static int gap;
 	static int N, ans;
 	public static void main(String[] args) throws NumberFormatException, IOException {
@@ -16,9 +17,10 @@ public class B14889 {
 		
 		String[] line;
 		N = Integer.parseInt(in.readLine());
+		visited = new boolean[N];
 		map = new int[N][N];
-		start = new ArrayList<Integer>();
-		link = new ArrayList<Integer>();
+		start = new int[N / 2];
+		link = new int[N / 2];
 		gap = 0; ans = Integer.MAX_VALUE;
 		
 		for(int r = 0; r < N ; ++r) {
@@ -28,28 +30,32 @@ public class B14889 {
 			}
 		}
 		
-		dfs(0);
+		dfs(0, 0);
 		
 		System.out.println(ans);
 	}
 	
-	private static void dfs(int player) {
+	private static void dfs(int player, int select) {
 		
 		if(player == N / 2) {
+			int idx = 0;
+			for(int i = 0 ; i < N ; ++i) {
+				if(visited[i]) continue;
+				link[idx] = i;
+				idx++;
+			}
 			gap = calc();
 			ans = ans > gap ? gap : ans;
 			return;
 		}
 		
-		for(int i = 1; i < N ; ++i) {
-			start.add(i);
-			for(int j = 1 ; j < N ; ++j) {
-				if(start.contains(j)) continue;
-				link.add(j);
-				dfs(player + 1);
-				link.remove(player);
+		for(int i = select; i < N ; ++i) {
+			if(!visited[i]) {
+				visited[i] = true;
+				start[player] = i;
+				dfs(player + 1, i);
+				visited[i] = false;
 			}
-			start.remove(player);
 		}
 	}
 
@@ -59,8 +65,8 @@ public class B14889 {
 		
 		for(int i = 0 ; i < N / 2 ; ++i) {
 			for(int j = i + 1 ; j < N / 2 ; ++j) {
-				startSum += map[start.get(i)][start.get(j)] + map[start.get(j)][start.get(i)];
-				linkSum += map[link.get(i)][link.get(j)] + map[link.get(j)][link.get(i)];
+				startSum += map[start[i]][start[j]] + map[start[j]][start[i]];
+				linkSum += map[link[i]][link[j]] + map[link[j]][link[i]];
 			}
 		}
 		return Math.abs(startSum - linkSum);
