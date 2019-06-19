@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router@3.0.1/dist/vue-router.js"></script>
+</head>
+<body>
+    <div id="app">
+        <h1>Example of Vue Router</h1>
+        <p>
+            <router-link to="/main">Move Main Component</router-link>
+            <router-link to="/login">Move Login Component</router-link>
+        </p>
+        <router-view></router-view>
+    </div>
+    <script>
+        let Main = { template: '<div>main</div>'};
+        let Login = { template: '<div>login</div>'};
+
+        let routes = [
+            { path: '/main', component: Main },
+            { path: '/login', component: Login }
+        ];
+
+        let router = new VueRouter({
+            // URL에서 #를 없애는 방법 mode: 'history'
+            mode: 'history',
+            routes
+        });
+
+        let app = new Vue({
+            router
+        }).$mount('#app');
+
+        // $mount API란?
+        // el 속성과 동일하게 인스턴스를 화면에 붙이는 역할
+        // 뷰 라우터의 공식 문서는 모두 인스턴스 안에 el을 지정하지 않고 라우터만 지정하여
+        // 생성한 다음 생성된 인스턴스를 $mount()를 이용해 붙이는 식으로 안내하고 있다.
+    </script>
+</body>
+</html>
