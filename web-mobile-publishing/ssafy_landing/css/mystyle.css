@@ -1,0 +1,137 @@
+body {overflow-y: hidden; overflow-x: hidden;}
+
+.link {
+    z-index: 1;
+    margin-top: 30px;
+}
+
+.link a {
+    text-decoration: none;
+}
+
+.section-intro {
+    margin-top: 1.5rem;
+    text-align: left;
+}
+
+.intro-name {
+    font-size: 3.5rem;
+    padding: 1rem 1rem 0 1rem;
+}
+
+.intro-career {
+    font-size: 30px;
+    padding: 1rem;
+}
+
+.avatar {
+    width: 300px;
+    height: 300px;
+    border-radius: 150px;
+}
+
+#naver, #instagram {
+    width: 60px;
+    height: 60px;
+}
+
+#bouncingball-1 {
+    vertical-align: middle;
+    font-size: 2rem;
+    width:140px;
+    height:140px;
+    border-radius:100%;
+    background:orange;
+    animation: bounce 1s;
+    transform: translateY(0px);
+    animation-iteration-count: infinite;
+    position:absolute;
+    margin-left:50px;
+}
+#bouncingball-1 p {
+    margin-top: 45px;
+}
+#bouncingball-2 {
+    font-size: 2rem;
+    width:140px;
+    height:140px;
+    border-radius:100%;
+    background:Yellow;
+    animation: bounce 1s;
+    transform: translateY(0px);
+    animation-iteration-count: infinite;
+    position:absolute;
+    margin-left:250px;
+}
+#bouncingball-2 p {
+    margin-top: 45px;
+}
+#bouncingball-3 {
+    width:140px;
+    font-size: 2rem;
+    height:140px;
+    border-radius:100%;
+    background:#41B883;
+    animation: bounce 1s;
+    transform: translateY(0px);
+    animation-iteration-count: infinite;
+    position:absolute;
+    margin-left:450px;
+}
+#bouncingball-3 p {
+    margin-top: 45px;
+}
+#bouncingball-4 {
+    width:140px;
+    font-size: 2rem;
+    height:140px;
+    border-radius:100%;
+    background:skyblue;
+    animation: bounce 1s;
+    transform: translateY(0px);
+    animation-iteration-count: infinite;
+    position:absolute;
+    margin-left:650px;
+}
+#bouncingball-4 p {
+    margin-top: 45px;
+}
+
+#bouncingball-5 {
+    width:140px;
+    font-size: 2rem;
+    height:140px;
+    border-radius:100%;
+    background:plum;
+    animation: bounce 1s;
+    transform: translateY(0px);
+    animation-iteration-count: infinite;
+    position:absolute;
+    margin-left:850px;
+}
+#bouncingball-5 p {
+    margin-top: 45px;
+}
+
+@keyframes bounce {
+    0% {top: 0;
+        -webkit-animation-timing-function: ease-in;
+    }
+    40% {}
+    50% {top: 140px;
+        height: 140px;
+        -webkit-animation-timing-function: ease-out;
+    }
+    55% {top: 160px; height: 120px;
+        -webkit-animation-timing-function: ease-in;}
+    65% {top: 120px; height: 140px;
+        -webkit-animation-timing-function: ease-out;}
+    95% {
+        top: 0;
+        -webkit-animation-timing-function: ease-in;
+    }
+    100% {top: 0;
+        -webkit-animation-timing-function: ease-in;
+    }
+}
+

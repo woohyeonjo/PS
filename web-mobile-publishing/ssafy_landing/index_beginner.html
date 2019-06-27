@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- META -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta property="og:title" content="og title" />
+    <meta property="og:description" content="og desc" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="" />
+    <meta property="og:url" content="" />
+    <meta name="keywords" content="key1, key2, key3" />
+    <meta name="description" content="desc" />
+
+    <!-- Favicon -->
+    <link href="" rel="shortcut icon" />
+
+    <!-- CSS -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:700&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="./css/reset.css" />
+    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="stylesheet" href="./css/mystyle.css" />
+
+    <!--JS-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="./js/ld.js"></script>
+
+    <title>Woohyeon Jo</title>
+  </head>
+  <body>
+    <!-- Header -->
+    <div class="header-wrapper">
+      <div class="header-contents">
+        <!-- 타이틀 -->
+        <p class="title" onclick="ssafy.ld.goPage(0)">Woohyeon Jo</p>
+
+        <!-- 상단 메뉴 && 모바일 메뉴 -->
+        <div class="nav-bar">
+          <ul>
+            <li>
+              <a class="a-nav-bar" onClick="ssafy.ld.goPage(1)">About Me</a>
+            </li>
+            <li>
+              <a class="a-nav-bar" onClick="ssafy.ld.goPage(2)">Skills</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main -->
+    <div class="main-wrapper">
+      <!-- section-1 -->
+      <div class="section section-1">
+        <div class="section-1-background" onclick="ssafy.ld.goPage(1)"></div>
+        <div class="section-content" onclick="ssafy.ld.goPage(1)">
+          <h1>
+            <span>Trust Me,</span> <br />
+            <span>I'm a UI Developer.</span>
+          </h1>
+        </div>
+      </div>
+
+      <!-- section-2 : 자기소개 -->
+      <div class="section section-2" onclick="ssafy.ld.goPage(2)">
+        <div class="section-content">
+          <div class="section-profile">
+            <div class="picture">
+              <img class="avatar" src="./assets/img/avatar.jpg">
+            </div>
+            <div class="link">
+              <a href="https://www.facebook.com/woohyeon.jo.1" target="_blank">
+                <img id="facebook" src="./assets/img/icon-facebook.png">
+              </a>
+              <a href="https://www.instagram.com/rememberyooou/" target="_blank">
+                <img id="instagram" src="./assets/img/icon-instagram.png">
+              </a>
+              <a href="https://www.linkedin.com/in/woohyeon-jo-31174b181/" target="_blank">
+                <img id="linkedin" src="./assets/img/icon-linkedin.png">
+              </a>
+              <a href="https://github.com/woohyeonjo" target="_blank">
+                <img id="github" src="./assets/img/icon-github.png">
+              </a>
+              <a href="https://blog.naver.com/effy25" target="_blank">
+                <img id="naver" src="./assets/img/icon-naver.png">
+              </a>
+            </div>
+          </div>
+          <div class="section-intro">
+            <div class="intro-name">
+              <p>Woohyeon Jo</p>
+            </div>
+            <div class="intro-career">
+                <p>KYONGGI Univ.</p>
+                <p>SSAFY</p>
+                <p>NEXTERS</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- section-3 : 보유 기술 역량 -->
+      <div class="section section-3" onclick="ssafy.ld.goPage(0)">
+        <h1>
+          <span>MY</span><br>
+          <span>STACK</span>
+        </h1>
+        <div class="section-content">
+          <div id="bouncingball-1"><p>JAVA</p></div>
+          <div id="bouncingball-2"><p>JS</p></div>
+          <div id="bouncingball-3"><p>Vue.js</p></div>
+          <div id="bouncingball-4"><p>React</p></div>
+          <div id="bouncingball-5"><p>Humor</p></div>
+        </div>
+      </div>
+
+      <!-- footer-->
+      <div class="footer">
+        <p>Copyright 2019 Woohyeon Jo All Right Reserved.</p>
+      </div>
+    </div>
+
+    <!-- init script -->
+    <script type="text/javascript" charset="utf-8">
+      $(document).ready(function() {
+        // scroll active
+        setTimeout(function() {
+          var items = document.querySelectorAll(".section");
+          items[0].classList.add("active");
+        }, 500);
+
+        ssafy.ld.init();
+      });
+    </script>
+  </body>
+</html>
