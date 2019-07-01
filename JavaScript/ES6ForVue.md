@@ -149,3 +149,113 @@
 
   
 
+### Arrow Function - 화살표 함수
+
+- 함수를 정의할 때 `function` 이라는 키워드를 사용하지 않고 `=>`로 대체
+
+- 흔히 사용하는 콜백 함수의 문법을 간결화
+
+- Scope의 변화
+
+  ```javascript
+  // ES5 함수 정의 방식
+  var sum = function(a, b){
+  	return a + b;
+  };
+  
+  // ES6 함수 정의 방식
+  let sum = (a, b) => {
+  	return a + b;
+  };
+  
+  sum(10, 20);
+  ```
+
+  ```javascript
+  // ES5
+  var arr = ["a", "b", "c"];
+  arr.forEach(function(value) {
+  	console.log(value); // a, b, c
+  });
+  
+  // ES6
+  let arr = ["a", "b", "c"];
+  arr.forEach(value => console.log(value)); // a, b, c
+  ```
+
+
+
+### Enhanced Object Literals - 향상된 객체 리터럴
+
+- 객체의 속성을 메서드로 사용할 때 `function` 예약어를 생략하고 생성 가능
+
+  ```javascript
+  var dictionary = {
+  	words: 100,
+  	// ES5
+  	lookup: function() {
+  		console.log("find words");
+  	},
+  	
+  	// ES6
+  	lookup() {
+  		console.log("find words");
+  	}
+  };
+  ```
+
+- 객체의 속성명과 값 명이 동일할 때 아래와 같이 축약 가능
+
+  ```javascript
+  let figures = 10;
+  let dictionary = {
+  	// figures: figures
+  	figures
+  };
+  ```
+
+
+
+### Modules - 자바스크립트 모듈화 방법
+
+- 자바스크립트 모듈 로더 라이브러리(AMD, Commons JS)기능을 js 언어 자체에서 지원
+
+  - ES5 에서는 자체 모듈화가 없었음
+  - ES5는 파일을 나눠도 Scope를 공유함
+  - 모듈화는 재사용성이 높은 코드를 묶어서 사용하기 위함
+
+- 호출되기 전까지는 코드 실행과 동작을 하지 않는 특징이 있음
+
+  ```javascript
+  // libs/math.js
+  export function sum(x, y) {
+  	return x + y;
+  }
+  export var pi = 3.141593;
+  
+  // main.js
+  import {sum} from 'libs/math.js'
+  sum(1, 2);
+  ```
+
+- Vue.js에서 마주칠 `default` export
+
+  - 한 개의 파일에서 한 개의 `default`만 export 된다.
+  - encapsulation
+
+  ```javascript
+  // util.js
+  export default function(x) {
+  	return console.log(x);
+  }
+  
+  // main.js
+  import util from 'util.js';
+  console.log(util); // function (x) { return console.log(x)}
+  util("hi");
+  
+  // app.js
+  import log from 'util.js';
+  console.log(log);
+  log("hi");
+  ```
