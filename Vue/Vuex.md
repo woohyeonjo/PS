@@ -73,3 +73,113 @@ Vuex - 상태 관리 라이브러리
 
 
 
+### Vuex 설치하기
+
+- Vuex는 싱글 파일 컴포넌트 체계에서 npm 방식으로 라이브러리를 설치하는 것이 좋다.
+
+  ```
+  npm install vuex --save
+  ```
+
+  - ES6와 함께 사용해야 더 많은 기능과 이점을 제공받을 수 있음
+
+- npm audit
+
+  - npm 모듈의 취약점을 점검해주는 기능
+
+  
+
+### Vuex 등록
+
+- src/store/store.js
+
+  ```javascript
+  import Vue from 'vue'
+  import Vuex from 'vuex'
+  
+  Vue.use(Vuex);
+  // use는 vue의 plug-in 기능으로 글로벌하게 사용하겠다는 의미
+  
+  export const store = new Vuex.Store({
+      
+  });
+  ```
+
+  
+
+- main.js
+
+  ```js
+  import {store} from './store/store'
+  // 변수라서 {store}
+  
+  new Vue({
+  	el: '#app',
+  	store
+  	// store: stroe 변수와 선언이 같기 때문에 축약 가능
+  })
+  ```
+
+
+
+### Vuex 기술 요소
+
+- state : 여러 컴포넌트에 공유되는 데이터 `data`
+- getters : 연산된 state 값을 접근하는 속성 `computed` 
+- mutations : state 값을 변경하는 이벤트 로직 메서드 `methods`
+- actions : 비동기 처리 로직을 선언하는 메서드 `aysnc methods`
+
+
+
+### state란?
+
+- 여러 컴포넌트 간에 공유할 데이터 - <b>상태</b>
+
+  ```js
+  // Vue
+  data: {
+  	message: 'Hello Vue.js!'
+  }
+  
+  // Vuex
+  state: {
+  	message: 'Hello Vue.js!'
+  }
+  ```
+
+  ```html
+  <!-- Vue -->
+  <p>{{ message }}</p>
+  
+  <!-- Vuex -->
+  <p>{{ this.$store.state.message }}</p>
+  ```
+
+  
+
+### getters란?
+
+- state 값을 접근하는 속성이자 `computed()`처럼 미리 연산된 값을 접근하는 속성
+
+  ```js
+  // store.js
+  state: {
+  	num: 10
+  },
+  getters: {
+  	getNumber(state) {
+  		return state.num;
+  	},
+  	doubleNumber(state) {
+  		return state.num * 2;
+  	}
+  }
+  ```
+
+  ```html
+  <p>{{ this.$store.getters.getNumber}}</p>
+  <p>{{ this.$store.getters.doubleNumber }}</p>
+  ```
+
+  
+
