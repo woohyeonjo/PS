@@ -183,3 +183,245 @@ Vuex - 상태 관리 라이브러리
 
   
 
+### actions란?
+
+- 비동기 처리 로직을 선언하는 메서드, 비동기 로직을 담당하는 mutations
+
+- 데이터 요청, Promise, ES6 async과 같은 비동기 처리는 모두 actions에 선언
+
+  ```javascript
+  // store.js
+  state: {
+  	num: 10
+  },
+  mutations: {
+  	doubleNumber (state) {
+  		state.num * 2;
+  	}
+  },
+  actions: {
+  	delayDoubleNumber (context) { // context로 store의 메서드와 속성 접근
+  		context.commit('dobuleNumber');
+  	}
+  }
+  
+  // App.vue
+  this.$store.dispatch('delayDoubleNumber');
+  ```
+
+#### actions 비동기 코드 예제 1
+
+```js
+// store.js
+mutations: {
+	addCounter(state) {
+		state.counter++;
+	},
+},
+actions: {
+	delayedAddCounter(context) {
+		setTimeout(() => context.commit('addCounter'), 2000);
+	}
+}
+
+//App.vue
+methods: {
+	incrementCounter() {
+		this.$store.dispatch('delayedAddCounter');
+	}
+}
+```
+
+#### actions 비동기 코드 예제 2
+
+```js
+// store.js
+mutations: {
+	setData(state, fetchedData){
+		state.product = fetchedData;
+	}
+},
+actions: {
+	fetchProductData(context) {
+		return axios.get('https://domain.com/products/1')
+					.then(response => context.commit('setData', response));
+	}
+}
+
+//App.vue
+methods: {
+	getProduct() {
+		this.$store.dispatch('fetchProductData');
+	}
+}
+```
+
+
+
+### 왜 비동기 처리 로직은 actions에 선언해야 할까?
+
+- 언제 어느 컴포넌트에서 해당 state를 호출하고, 변경했는지 확인하기가 어려움
+- 결론 : state 값의 변화를 추적하기 어렵기 때문에 mutations 속성에는 동기 처리 로직만 넣어야 한다.
+
+
+
+### 각 속성들을 더 쉽게 사용하는 방법 - Helper
+
+Store에 있는 아래 4가지 속성들을 간편하게 코딩하는 방법
+
+- state -> mapState
+- getters -> mapGetters
+- mutations -> mapMutations
+- actions -> mapActions
+
+
+
+### Helper의 사용법
+
+- Helper를 사용하고자 하는 vue 파일에서 아래와 같이 해당 Helper를 로딩
+
+  ```js
+  // App.vue
+  import { mapState } from 'vuex'
+  import { mapGetters } from 'vuex'
+  import { mapMutations } from 'vuex'
+  import { mapActions } from 'vuex'
+  
+  export default {
+  	computed() { ...mapState(['num']), ...mapGetters(['countedNum'])},
+  	methods: { ...mapMutations(['clickBtn']), ...mapActions(['asyncClickBtn'])}
+  }
+  ```
+
+- ...는 ES6의 Object Spread Operator
+
+
+
+### mapState
+
+- Vuex에 선언한 state 속성을 뷰 컴포넌트에 더 쉽게 연결해주는 헬퍼
+
+  ```js
+  // App.vue
+  import { mapState } from 'vuex'
+  
+  computed() {
+  	...mapState(['num'])
+  	// num() { return this.$store.state.num; }
+  }
+  
+  // store.js
+  state: {
+  	num: 10
+  }
+  ```
+
+  ```html
+  <!-- <p>{{ this.$store.state.num }}</p> -->
+  <p>{{ this.num }}</p>
+  ```
+
+
+
+### mapGetters
+
+- Vuex에 선언한 getters 속성을 뷰 컴포넌트에 더 쉽게 연결해주는 헬퍼
+
+  ```js
+  // App.vue
+  import { mapGetters } from 'vuex'
+  
+  computed() { ...mapGetters(['reverseMessage']) }
+  
+  // store.js
+  getters: {
+  	reverseMessage(state) {
+          return state.msg.split('').reverse().join('');
+      }
+  }
+  ```
+
+  ```html
+  <!-- <p>{{ this.$store.getters.reverseMessage }}</p> -->
+  <p>{{ this.reverseMessage }}</p>
+  ```
+
+  
+
+### mapMutations
+
+- Vuex에 선언한 mutations 속성을 뷰 컴포넌트에 더 쉽게 연결해주는 Helper
+
+  ```js
+  // App.vue
+  import { mapMutations } from 'vuex'
+  
+  methods: {
+  	...mapMutations(['clickBtn']),
+  	authLogin() {},
+  	displayTable() {}
+  }
+  
+  // store.js
+  mutations: {
+  	clickBtn(state) {
+  		alert(state.msg);
+  	}
+  }
+  ```
+
+  ```html
+  <button @click="clickBtn">popup message</button>
+  ```
+
+
+
+### mapActions
+
+- Vuex에 선언한 actions속성을 뷰 컴포넌트에 더 쉽게 연결해주는 Helper
+
+  ```js
+  // App.vue
+  import { mapActions } from 'vuex'
+  
+  methods: {
+  	...mapActions(['delayClickBtn']),
+  }
+  
+  // store.js
+  actions: {
+  	delayClickBtn(context) {
+  		setTimeout(() => context.commit('clickBtn'), 2000);
+  	}
+  }
+  ```
+
+  ```html
+  <button @click=delayClickBtn">delay popup message</button>
+  ```
+
+  
+
+### Helper의 유연한 문법
+
+- Vuex에 선언한 속성을 그대로 컴포넌트에 연결하는 문법
+
+  ```js
+  // 배열 리터럴
+  ...mapMutations([
+  	'clickBtn', // 'clickBtn' : clickBtn
+  	'addNumber' // addNumber(인자)
+  ])
+  ```
+
+- Vuex에 선언한 속성을 컴포넌트의 특정 메서드에다가 연결하는 문법
+
+  ```js
+  // 객체 리터럴
+  ...mapMutations({
+  	popupMsg: 'clickBtn' // 컴포넌트 메서드 명 : Store의 Mutation 명
+  })
+  ```
+
+
+
