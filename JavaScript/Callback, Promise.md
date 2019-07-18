@@ -21,10 +21,68 @@
 ### 프라미스
 
 - 프라미스 기반 비동기적 함수를 호출하면 그 함수는 Promise 인스턴스를 반환한다. 
+
 - 프라미스는 성공(fulfilled)하거나, 실패(rejected)하는 두 가지뿐이다.
+
 - 프라미스는 단 한 번만 일어난다. 결정된다.(settled)
 
+  ```js
+  // 프로미스 생성
+  const promise1 = function(param){
+    return new Promise(function(resolve,reject){
+      if(param){
+        resolve("바보");
+      }
+      else{
+        reject("아닌데");
+      }
+    });
+  }
+  // 프로미스 실행
+  promise1(true).then(function(result){
+    console.log(result);//바보
+  },function(err){
+    console.log(err);//아닌데
+  });
+  
+  // 에러 처리
+  asyncThing1()
+      .then(function() { return asyncThing2();})
+      .then(function() { return asyncThing3();})
+      .catch(function(err) { return asyncRecovery1();})
+   
+      .then(function() { return asyncThing4();}, function(err) { return asyncRecovery2(); })
+      .catch(function(err) { console.log("Don't worry about it");})
+   
+      .then(function() { console.log("All done!");});
+  ```
 
+- Promise.all
+
+  ```js
+  const param = true;
+  const promise1 = new Promise(function(resolve,reject){
+      if(param){
+        resolve("바보");
+      }
+      else{
+        reject("아닌데");
+      }
+  });
+  const promise2 = new Promise(function(resolve,reject){
+      if(param){
+        resolve("바보2");
+      }
+      else{
+        reject("아닌데2");
+      }
+  });
+  Promise.all([promise1,promise2]).then(function(values){
+      console.log("1,2,3 모두완료",values);
+  });
+  ```
+
+  
 
 ### Countdown
 
