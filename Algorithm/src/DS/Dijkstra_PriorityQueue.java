@@ -1,7 +1,5 @@
 package DS;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.PriorityQueue;
@@ -24,7 +22,7 @@ public class Dijkstra_PriorityQueue {
         }
 
         @Override
-        public int compareTo(@NotNull Edge o) {
+        public int compareTo(Edge o) {
             return this.weight - o.weight;
         }
     }
