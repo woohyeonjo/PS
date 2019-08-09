@@ -2,6 +2,7 @@
 # Created by https://www.gitignore.io/api/node,java,windows,eclipse,intellij,webstorm
 # Edit at https://www.gitignore.io/?templates=node,java,windows,eclipse,intellij,webstorm
 
+.DS_Store
 ### Eclipse ###
 .metadata
 bin/
