@@ -2,7 +2,7 @@ package BOJ.go;
 
 import java.util.Scanner;
 
-public class B17135 {
+public class B17135_캐슬디펜스 {
 	public static class Cell {
 		int r, c;
 		int type;

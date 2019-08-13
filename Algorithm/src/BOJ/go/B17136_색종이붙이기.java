@@ -23,7 +23,7 @@ public class B17136_색종이붙이기 {
 		
 		map = new int[N][N];
 		marked = new boolean[N][N];
-		paper = new int[6];
+		paper = new int[6]; 
 		ans = Integer.MAX_VALUE;
 		current = 0;
 		
