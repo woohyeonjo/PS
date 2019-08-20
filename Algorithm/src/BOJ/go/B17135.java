@@ -1,4 +1,4 @@
-package B190625;
+package BOJ.go;
 
 import java.util.Scanner;
 

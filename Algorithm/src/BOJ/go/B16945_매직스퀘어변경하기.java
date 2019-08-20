@@ -1,6 +1,8 @@
+package BOJ.go;
+
 import java.util.Scanner;
 
-public class B16945_¸ÅÁ÷½ºÄù¾îº¯°æÇÏ±â {
+public class B16945_ë§¤ì§ìŠ¤í€˜ì–´ë³€ê²½í•˜ê¸° {
 	
 	static final int MAGIC_NUM = 15;
 	static int[][] input;
