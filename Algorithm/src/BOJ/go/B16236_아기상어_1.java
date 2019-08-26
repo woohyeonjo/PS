@@ -6,7 +6,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Scanner;
 
-public class B16236 {
+public class B16236_아기상어_1 {
 	static class Shark {
 		int r, c, level, eat;
 
