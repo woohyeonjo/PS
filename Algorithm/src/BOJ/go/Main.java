@@ -1,20 +1,22 @@
 package BOJ.go;
 
-import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
-    	Scanner sc = new Scanner(System.in);
     	
-    	String a = sc.next();
-    	if(a.equals("h0ngjun7")) {
-    		System.out.println(":fan::fan::fan:");
-    		System.out.println(":fan::h0ngjun7::fan:");
-    		System.out.println(":fan::fan::fan:");
-    	} else if(a.equals("appa")) {
-    		System.out.println(":fan::fan::fan:");
-    		System.out.println(":fan::appa::fan:");
-    		System.out.println(":fan::fan::fan:");
+    	// 완전 동적
+    	
+    	ArrayList<ArrayList<Integer>> list;
+    	list = new ArrayList<>();
+    	
+    	// 반자동
+    	
+    	ArrayList<Integer>[] list2 = new ArrayList[10];
+    	
+    	for(int i = 0; i < 10; i++) {
+    		list2[i] = new ArrayList<>();
     	}
+    	
     }
 }
