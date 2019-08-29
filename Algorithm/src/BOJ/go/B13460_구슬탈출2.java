@@ -2,7 +2,7 @@ package BOJ.go;
 
 import java.util.Scanner;
 
-public class B13460 {
+public class B13460_구슬탈출2 {
 	static char[][] map;
 //	static boolean[][][] visited;
 	static int N, M, ans;
