@@ -1,7 +1,5 @@
 package BOJ.go;
 
-import java.util.LinkedList;
-import java.util.Queue;
 import java.util.Scanner;
 
 public class B16918_봄버맨 {
@@ -24,7 +22,6 @@ public class B16918_봄버맨 {
 		}
 	}
 	
-	static Queue<Bomb> q;
 	static Bomb[][] map;
 	static int[][] dir = {{-1,0}, {1,0}, {0,-1}, {0,1}};
 	static int R, C, N;
@@ -37,7 +34,6 @@ public class B16918_봄버맨 {
 		N = sc.nextInt();
 		
 		map = new Bomb[R][C];
-		q = new LinkedList<>();
 		
 		char[] line;
 		for(int r = 0 ; r < R ; ++r){
@@ -45,40 +41,73 @@ public class B16918_봄버맨 {
 			for(int c = 0 ; c < C ; ++c){
 				if(line[c] == '.') map[r][c] = new Bomb(r, c, -1, false);
 				else {
-					map[r][c] = new Bomb(r, c, 3, true);
-					q.offer(map[r][c]);
+					map[r][c] = new Bomb(r, c, 2, true);
 				}
 			}
 		}
-		go();
+		
+		while(true) {
+			if(timePass()) break;
+			boom();
+			
+			setBomb();
+			
+			if(timePass()) break;
+			boom();
+		}
 		print();
 	}
 
-	private static void go() {
-		int TIME = 0;
-		while(!q.isEmpty()){
-			if(TIME == N) return;
-			
-			Bomb bomb = q.poll();
-			
-			if(bomb.time == 0){
-				bomb.isLive = false;
-				bomb.time = -1;
-				for(int i = 0 ; i < 4 ; ++i){
-					map[bomb.r + dir[i][0]][bomb.c + dir[i][1]].isLive = false;
+	private static void boom() {
+		int nr, nc;
+		
+		for(int r = 0 ; r < R ; ++r) {
+			for(int c = 0 ; c < C ; ++c) {
+				if(map[r][c].time == 0) {
+					map[r][c].time = -1;
+					map[r][c].isLive = false;
+					for(int i = 0 ; i < 4 ; ++i) {
+						nr = r + dir[i][0];
+						nc = c + dir[i][1];
+						if(nr >= R || nr < 0 || nc >= C || nc < 0) continue;
+						
+						if(map[nr][nc].isLive) {
+							if(map[nr][nc].time > 0) {
+								map[nr][nc].isLive = false;
+								map[nr][nc].time = -1;
+							}
+							else map[nr][nc].isLive = false;
+						}
+					}
+					
 				}
-			} else if(bomb.isLive && bomb.time > 0){
-				bomb.time--;
-				q.offer(bomb);
 			}
-			
-			setBomb();
-			TIME++;
 		}
 	}
 
-	private static void setBomb() {
+	private static boolean timePass() {
+		N--;
+		if(N == 0) return true;
 		
+		for(int r = 0 ; r < R ; ++r) {
+			for(int c = 0 ; c < C ; ++c) {
+				if(map[r][c].isLive) {
+					map[r][c].time--;
+				}
+			}
+		}
+		return false;
+	}
+
+	private static void setBomb() {
+		for(int r = 0 ; r < R ; ++r) {
+			for(int c = 0 ; c < C ; ++c) {
+				if(!map[r][c].isLive) {
+					map[r][c].isLive = true;
+					map[r][c].time = 3;
+				}
+			}
+		}
 	}
 
 	private static void print() {
