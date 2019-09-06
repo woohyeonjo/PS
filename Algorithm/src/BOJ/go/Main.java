@@ -1,46 +1,32 @@
 package BOJ.go;
 
-public class Main {
-	static int[][] map;
-	static int[] temp = new int[2];
-    public static void main(String[] args) {
-    	
-    	map = new int[2][2];
-    	int num = 1;
-    	
-    	for(int i = 0 ; i < 2 ; ++i) {
-    		for(int j = 0 ; j < 2 ; ++j) {
-    			map[i][j] = num++;
-    			System.out.print(map[i][j] + " ");
-    		}
-    		System.out.println();
-    	}
-    	System.out.println();
-    	
-    	go(0, 0, 0);
-    }
+import java.util.*;
 
-	private static void go(int depth, int I, int J) {
-		
-		if(depth == 2 || J == 2) {
-			for(int i = 0 ; i < 2 ; ++i) {
-				System.out.print(temp[i] + " ");
-			}
-			System.out.println();
-			return;
-		}
-		
-		boolean flag = true;
-		for(int i = 0 ; i < 2 ; ++i) {
-			for(int j = 0 ; j < 2 ; ++j) {
-				if(flag) {
-					i = I;
-					j = J;
-					flag=false;
-				}
-				temp[depth] = map[i][j];
-				go(depth + 1, i, j + 1);
-			}
-		}
-	}
+public class Main {
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        
+        boolean[][] map = new boolean[100][100];
+        
+        int T = sc.nextInt();
+        
+        int R, C;
+        for(int t = 0 ; t < T ; ++t){
+        	C = sc.nextInt();
+        	R = sc.nextInt();
+        	for(int r = R ; r < R + 10 ; ++r){
+        		for(int c = C ; c < C + 10 ; ++c){
+        			map[r][c] = true;
+        		}
+        	}
+        }
+        
+        int ans = 0;
+        for(int r = 0 ; r < 100 ; ++r){
+            for(int c = 0 ; c < 100 ; ++c){
+                if(map[r][c])ans++;
+            }
+        }
+        System.out.println(ans);
+    }
 }
