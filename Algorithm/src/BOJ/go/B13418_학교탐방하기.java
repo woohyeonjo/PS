@@ -50,14 +50,13 @@ public class B13418_학교탐방하기 {
 			}
 		}
 		
-		int min = calFatigue(1);
-		int max = calFatigue(0);
+		int min = fatigue + calFatigue(1);
+		int max = fatigue + calFatigue(0);
 		
-		System.out.println(max - min);
+		System.out.println((max * max) - (min * min));
 	}
 	
 	private static int calFatigue(int selector) {
-		// 
 		int result = 0;
 		
 		for(int i = 0 ; i < N + 1 ; ++i) parent[i] = i;
@@ -88,7 +87,7 @@ public class B13418_학교탐방하기 {
 		}
 //		System.out.println();
 		
-		return result * result;	
+		return result;	
 	}
 
 	static private int find(int x) {
