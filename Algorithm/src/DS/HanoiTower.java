@@ -17,11 +17,11 @@ public class HanoiTower {
 
     private static void hanoi(int disk, int from, int by, int to){
         if(disk == 1) {
-            System.out.println(from + " " + to);
+            System.out.println(from + "번 기둥에서 " + to + "번 기둥으로 ");
             return;
         }
         hanoi(disk - 1, from, to, by);
-        System.out.println(from + " " + to);
+        System.out.println(from + "번 기둥에서 " + to + "번 기둥으로 ");
         hanoi(disk - 1, by, from, to);
     }
 }
