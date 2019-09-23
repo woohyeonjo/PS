@@ -1,8 +1,8 @@
-package NHN;
+package CodingTest.NHN;
 
 import java.util.Scanner;
 
-public class test {
+public class prectice1 {
 	
 	static String[][] arr;
 	static int[][] dir = {{1, 0}, {0, 1}, {-1, 0}, {0, -1}}; // 시계

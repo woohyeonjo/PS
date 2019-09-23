@@ -1,4 +1,4 @@
-package LINE_190922;
+package CodingTest.LINE_190922;
 
 import java.util.Arrays;
 import java.util.Scanner;

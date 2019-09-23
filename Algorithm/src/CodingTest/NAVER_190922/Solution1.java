@@ -1,4 +1,4 @@
-package NAVER_190922;
+package CodingTest.NAVER_190922;
 
 import java.util.Scanner;
 
