@@ -1,7 +1,7 @@
 package B.모의평가8월;
 
+
 class UserSolution {
-	
 	void InitDB()
 	{
 		
@@ -9,7 +9,8 @@ class UserSolution {
 
 	void Add(String name, String number, String birthday, String email, String memo)
 	{
-
+		
+		
 	}
 
 	int Delete(int field, String str)
@@ -29,4 +30,5 @@ class UserSolution {
 
 		return result;
 	}
+	
 }
