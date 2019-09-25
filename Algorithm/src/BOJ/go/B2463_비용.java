@@ -1,7 +1,7 @@
 package BOJ.go;
 
-import java.util.Arrays;
-import java.util.PriorityQueue;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 public class B2463_비용 {
@@ -18,14 +18,15 @@ public class B2463_비용 {
 
 		@Override
 		public int compareTo(Edge o) {
-			return this.z - o.z;
+			return -(this.z - o.z);
 		}
 	}
 	
-	static PriorityQueue<Edge> pq;
-	static int[] parent;
-	static int[] copy;
-	static int N, M, ans;
+	static final int MOD = 1000000000;
+	static ArrayList<Edge> list;
+	static int[] parent, size;
+	static int N, M;
+	static long total;
 	
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
@@ -33,55 +34,55 @@ public class B2463_비용 {
 		N = sc.nextInt();
 		M = sc.nextInt();
 		
-		pq = new PriorityQueue<>();
+		list = new ArrayList<>();
 		parent = new int[N + 1];
-		ans = 0;
+		size = new int[N + 1];
+		total = 0;
 		
-		for(int i = 1 ; i < N + 1 ; ++i) parent[i] = i;
+		init();
 		int x,y,z;
 		for(int i = 0 ; i < M ; ++i) {
 			x = sc.nextInt();
 			y = sc.nextInt();
 			z = sc.nextInt();
-			pq.offer(new Edge(x, y, z));
-			union(parent, x, y);
+			list.add(new Edge(x, y, z));
+			total += z;
 		}
 		
+		Collections.sort(list);
+		
 		Edge edge;
-//		for(int u = 1 ; u < N ; ++u){
-//			for(int v = u + 1 ; v < N + 1 ; ++v){
-				copy();
-				int u = 2;
-				int v = 6;
-				while(!pq.isEmpty()){
-					edge = pq.poll();
-					if(find(copy, u) == find(copy, v)){
-						for(int i = 1 ; i < N + 1 ; ++i) System.out.print(copy[i]);
-						System.out.println();
-						System.out.println("(" + edge.x + ", " + edge.y + ")");
-						ans += edge.z;
-						copy[edge.x] = edge.x;
-						copy[edge.y] = edge.y;
-					} else break;
-				}
-//			}
-//		}
-		System.out.println(ans);
+		long sum = 0;
+		for(int i = 0 ; i < M ; ++i){
+			edge = list.get(i);
+			int X = find(edge.x);
+			int Y = find(edge.y);
+			
+			if(X != Y){
+				sum += ((size[X] * size[Y]) % MOD) * total % MOD;
+				sum = sum % MOD;
+				union(X, Y);
+			}
+			total -= edge.z;
+		}
+		System.out.println(sum);
+	}
+	
+	private static void init() {
+		for(int i = 0 ; i < N + 1 ; ++i) {
+			parent[i] = i;
+			size[i] = 1;
+		}
 	}
 
-	private static void copy() {
-		copy = new int[N + 1];
-		for(int i = 0 ; i < N + 1 ; ++i) copy[i] = parent[i];
+	private static void union(int x, int y) {
+		parent[y] = x;
+		size[x] += size[y];
+		size[y] = 1;
 	}
 
-	private static void union(int[] arr, int x, int y) {
-		x = find(arr, x);
-		y = find(arr, y);
-		if(x != y) arr[y] = x;
-	}
-
-	private static int find(int[] arr, int x) {
-		if(arr[x] == x) return x;
-		else return arr[x] = find(arr, arr[x]);
+	private static int find(int x) {
+		if(parent[x] == x) return x;
+		else return parent[x] = find(parent[x]);
 	}
 }
