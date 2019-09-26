@@ -16,21 +16,8 @@ public class B16637_괄호추가하기 {
 		
 		arr = sc.next().split("");
 		braket = new boolean[arr.length];
-		
-		String op = "";
-		ans = Integer.parseInt(arr[0]);
-		for(int i = 1 ; i < N ; ++i){
-			switch(arr[i]){
-			case "+":
-			case "*":
-			case "-":
-				op = arr[i];
-				break;
-			default:
-				ans = calc(op, Integer.parseInt(arr[i]), ans);
-			}
-		}
-		print(arr);
+		ans = Integer.MIN_VALUE;
+				
 		permu(1);
 		
 		System.out.println(ans);
@@ -39,7 +26,6 @@ public class B16637_괄호추가하기 {
 	private static void permu(int index) {
 		if(index >= N){
 			copy();
-			long current = 0;
 			for(int i = 1 ; i < copy.length - 1 ; i += 2){
 				if(braket[i]){
 					copy[i] = calc(copy[i], Integer.parseInt(copy[i + 1]), Integer.parseInt(copy[i - 1])) + "";
@@ -47,7 +33,22 @@ public class B16637_괄호추가하기 {
 					copy[i + 1] = null;
 				}
 			}
-			print(copy);
+			
+			long current = 0;
+			String op = "+";
+			for(int i = 0 ; i < copy.length ; ++i) {
+				if(copy[i] == null) continue;
+				switch(copy[i]){
+				case "+":
+				case "*":
+				case "-":
+					op = copy[i];
+					break;
+				default:
+					current = calc(op, Integer.parseInt(copy[i]), current);
+				}
+			}
+			ans = current > ans ? current : ans;
 			return;
 		}
 		
