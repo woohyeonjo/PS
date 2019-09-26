@@ -1,0 +1,95 @@
+package BOJ.go;
+
+import java.util.Scanner;
+
+public class B16637_괄호추가하기 {
+	
+	static int N;
+	static String[] arr;
+	static String[] copy;
+	static boolean[] braket;
+	static long ans;
+	
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		N = sc.nextInt();
+		
+		arr = sc.next().split("");
+		braket = new boolean[arr.length];
+		
+		String op = "";
+		ans = Integer.parseInt(arr[0]);
+		for(int i = 1 ; i < N ; ++i){
+			switch(arr[i]){
+			case "+":
+			case "*":
+			case "-":
+				op = arr[i];
+				break;
+			default:
+				ans = calc(op, Integer.parseInt(arr[i]), ans);
+			}
+		}
+		print(arr);
+		permu(1);
+		
+		System.out.println(ans);
+	}
+
+	private static void permu(int index) {
+		if(index >= N){
+			copy();
+			long current = 0;
+			for(int i = 1 ; i < copy.length - 1 ; i += 2){
+				if(braket[i]){
+					copy[i] = calc(copy[i], Integer.parseInt(copy[i + 1]), Integer.parseInt(copy[i - 1])) + "";
+					copy[i - 1] = null;
+					copy[i + 1] = null;
+				}
+			}
+			print(copy);
+			return;
+		}
+		
+		if(index == 1){
+			braket[index] = true;
+			permu(index + 2);
+			braket[index] = false;
+			permu(index + 2);
+		} else {
+			if(!braket[index - 2]) {
+				braket[index] = true;
+				permu(index + 2);
+				braket[index] = false;
+				permu(index + 2);
+			} else {
+				permu(index + 2);
+			}
+		}
+	}
+
+	private static long calc(String op, int num, long result) {
+		switch(op){
+			case "+": return result + num;
+			case "*": return result * num;
+			case "-": return result - num;
+		}
+		return 0;
+	}
+	
+	private static void print(String[] Arr){
+		for(int i = 0 ; i < Arr.length ; ++i){
+			if(Arr[i] == null) continue;
+			System.out.print(Arr[i] + " ");
+		}
+		System.out.println();
+	}
+	
+	private static void copy(){
+		copy = new String[arr.length];
+		for(int i = 0 ; i < arr.length ; ++i){
+			copy[i] = arr[i];
+		}
+	}
+	
+}
