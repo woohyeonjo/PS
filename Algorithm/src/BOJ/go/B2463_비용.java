@@ -24,7 +24,8 @@ public class B2463_비용 {
 	
 	static final int MOD = 1000000000;
 	static ArrayList<Edge> list;
-	static int[] parent, size;
+	static int[] parent;
+	static long[] size;
 	static int N, M;
 	static long total;
 	
@@ -36,7 +37,7 @@ public class B2463_비용 {
 		
 		list = new ArrayList<>();
 		parent = new int[N + 1];
-		size = new int[N + 1];
+		size = new long[N + 1];
 		total = 0;
 		
 		init();
