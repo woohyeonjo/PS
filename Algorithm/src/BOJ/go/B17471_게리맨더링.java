@@ -56,9 +56,9 @@ public class B17471_게리맨더링 {
 		if(index > N){
 			connect();
 			if(isPossible()){
-				print(section);
-				print(parent);
-				System.out.println();
+//				print(section);
+//				print(parent);
+//				System.out.println();
 				int current = 0;
 				int section1 = 0;
 				int section2 = 0;
@@ -102,11 +102,11 @@ public class B17471_게리맨더링 {
 		for(int i = 1 ; i <= N ; ++i) {
 			if(section[i] == 1) {
 				section1++;
-				section1_root = parent[i];
+				section1_root = find(i);
 			}
 			else {
 				section2++;
-				section2_root = parent[i];
+				section2_root = find(i);
 			}
 		}
 		
@@ -116,10 +116,10 @@ public class B17471_게리맨더링 {
 		// 같은 섹션이지만 연결되지 않은 경우를 체크합니다.
 		for(int i = 1 ; i <= N ; ++i) {
 			if(section[i] == 1) {
-				if(parent[i] != section1_root) return false;
+				if(find(i) != section1_root) return false;
 			}
 			else {
-				if(parent[i] != section2_root) return false;
+				if(find(i) != section2_root) return false;
 			}
 		}
 		
