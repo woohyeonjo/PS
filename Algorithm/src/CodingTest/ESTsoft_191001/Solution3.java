@@ -11,7 +11,7 @@ public class Solution3 {
 	
 	 public static String solution(int U, int L, int[] C) {
 	        M = new int[2][C.length];
-	        fill(0, 0, 0, U, L, C);
+	        if(!fill(0, 0, 0, U, L, C)) return "IMPOSSIBLE";
 	        
 	        String upper = "";
 	        String lower = "";
@@ -20,9 +20,7 @@ public class Solution3 {
 	           upper += M[0][i];
 	           lower += M[1][i];
 	        }
-	        
-	        if((upper + lower).length() < 1) return "IMPOSSIBLE";
-	        else return upper + "," + lower;
+	        return upper + "," + lower;
 	    }
 	    static boolean check(int U, int L, int[] C){
 	        int u = 0;
