@@ -4,17 +4,22 @@ package BOJ;
 import java.util.*;
 
 public class Main {
-    public static void main(String[] args){
-    	String s = "1234";
-    	
-    	for(int i = 0 ; i < s.length() ; ++i) {
-    		int c = (int) s.charAt(i);
-    		System.out.println(c);
-    	}
-    	
-    	
-    	int[] arr = {1, 2, 3, 4};
-    	
-    	Arrays.sort(arr);
+	
+	static LinkedList<Integer> ll = new LinkedList<>();
+	public static void main(String[] args){
+		ll.add(1);
+		print();
+		ll.addFirst(2);
+		print();
+		ll.addLast(3);
+		print();
+		System.out.println(ll.peek());
+		
+		
     }
+	
+	static public void print() {
+		for(Integer i : ll) System.out.print(i + " ");
+		System.out.println();
+	}
 }
