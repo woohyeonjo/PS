@@ -1,4 +1,6 @@
-class Solution {
+package CodingTest.CORSPro.Level1;
+
+class Solution_5_10 {
     class Job {
         public int salary;
 
@@ -11,7 +13,7 @@ class Solution {
         }
     }
 
-    class PartTimeJob @@@ {
+    class PartTimeJob extends Job {
         public int workHour, payPerHour;
 
         public PartTimeJob(int workHour, int payPerHour) {
@@ -19,7 +21,7 @@ class Solution {
             this.payPerHour = payPerHour;
         }
 
-        @@@ {
+        public int getSalary() {
             salary = workHour * payPerHour;
             if(workHour >= 40)
                 salary += (payPerHour * 8);
@@ -28,7 +30,7 @@ class Solution {
         }
     }
 
-    class SalesJob @@@ {
+    class SalesJob extends Job {
         public int salesResult, payPerSale;
 
         public SalesJob(int salesResult, int payPerSale) {
@@ -36,7 +38,7 @@ class Solution {
             this.payPerSale = payPerSale;
         }
 
-        @@@ {
+        public int getSalary() {
             if(salesResult > 20)
                 salary = salesResult * payPerSale * 3;
             else if(salesResult > 10)
@@ -66,7 +68,7 @@ class Solution {
 
     // 아래는 테스트케이스 출력을 해보기 위한 main 메소드입니다.
     public static void main(String[] args) {
-        Solution sol = new Solution();
+    	Solution_5_10 sol = new Solution_5_10();
         int[][] partTimeJobs = {{10, 5000}, {43, 6800}, {5, 12800}};
         int[][] salesJobs = {{3, 18000}, {12, 8500}};
         int ret = sol.solution(partTimeJobs, salesJobs);

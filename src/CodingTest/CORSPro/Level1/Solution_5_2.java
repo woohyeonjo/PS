@@ -1,11 +1,13 @@
-class Solution {
+package CodingTest.CORSPro.Level1;
+
+class Solution_5_2 {
     public int solution(int[][] walls) {
         int answer = 0;
 
         for(int i = 0; i < walls.length; i++) {
         	for(int j = i+1; j < walls.length; j++) {
         		int area = 0;
-        		if(walls[i][1] > walls[j][1])
+        		if(walls[j][1] > walls[i][1])
         			area = walls[i][1] * (walls[j][0] - walls[i][0]);
         		else
         			area = walls[j][1] * (walls[j][0] - walls[i][0]);
@@ -20,7 +22,7 @@ class Solution {
 
     // 아래는 테스트케이스 출력을 해보기 위한 main 메소드입니다. 아래에는 잘못된 부분이 없으니, 위의 코드만 수정하세요.
     public static void main(String[] args) {
-    	Solution sol = new Solution();
+    	Solution_5_2 sol = new Solution_5_2();
     	int[][] walls = {{1, 4}, {2, 6}, {3, 5}, {5, 3}, {6, 2}};
     	int ret = sol.solution(walls);
 

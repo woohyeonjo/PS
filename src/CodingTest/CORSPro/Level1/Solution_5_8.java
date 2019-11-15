@@ -1,4 +1,6 @@
-class Solution {
+package CodingTest.CORSPro.Level1;
+
+class Solution_5_8 {
 	public int func_a(int a, int b) {
 		int mod = a % b;
 
@@ -15,7 +17,7 @@ class Solution {
 		int answer = 0;
 
 		for(int i = 1; i <= n; i++) {
-			if(func_@@@(@@@))
+			if(func_c(n, i))
 				answer++;
 		}
 
@@ -32,15 +34,15 @@ class Solution {
 	public int solution(int a, int b, int c) {
 		int answer = 0;
 
-		int gcd = func_@@@(func_@@@(@@@)@@@);
-		answer = func_@@@(@@@);
+		int gcd = func_a(func_a(a, b), c);
+		answer = func_b(gcd);
 
 		return answer;
 	}
 
 	// 아래는 테스트케이스 출력을 해보기 위한 main 메소드입니다.
 	public static void main(String[] args) {
-		Solution sol = new Solution();
+		Solution_5_8 sol = new Solution_5_8();
 		int a = 24;
 		int b = 9;
 		int c = 15;

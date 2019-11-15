@@ -1,4 +1,6 @@
-class Solution {
+package CodingTest.CORSPro.Level1;
+
+class Solution_5_4 {
     public String solution(int number) {
         String answer = "";
 
@@ -8,7 +10,7 @@ class Solution {
             number /= 10;
         }
 
-        for(int i = 0; i < 10; i++)
+        for(int i = 9; i >= 0; i--)
             if(numberCount[i] != 0)
                 answer += (String.valueOf(i) + String.valueOf(numberCount[i]));
         
@@ -17,7 +19,7 @@ class Solution {
 
     // 아래는 테스트케이스 출력을 해보기 위한 main 메소드입니다. 아래에는 잘못된 부분이 없으니, 위의 코드만 수정하세요.
     public static void main(String[] args) {
-    	Solution sol = new Solution();
+    	Solution_5_4 sol = new Solution_5_4();
     	int number1 = 2433;
     	String ret1 = sol.solution(number1);
 

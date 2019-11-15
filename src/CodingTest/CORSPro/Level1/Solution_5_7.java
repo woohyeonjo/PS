@@ -1,9 +1,11 @@
-class Solution {
+package CodingTest.CORSPro.Level1;
+
+class Solution_5_7 {
     public int find(int[] parent, int u) {
         if(u == parent[u])
             return u;
 
-        parent[u] = @@@;
+        parent[u] = find(parent, parent[u]);
         return parent[u];
     }
 
@@ -14,7 +16,7 @@ class Solution {
         if(u == v)
             return true;
 
-        @@@;
+        else parent[u] = parent[v];
         return false;
     }
 
@@ -23,7 +25,7 @@ class Solution {
 
         int[] parent = new int[n+1];
         for(int i = 1; i <= n; i++)
-            @@@;
+            parent[i] = i;
 
         for(int i = 0; i < connections.length; i++)
             if(merge(parent, connections[i][0], connections[i][1])) {
@@ -36,7 +38,7 @@ class Solution {
 
     // 아래는 테스트케이스 출력을 해보기 위한 main 메소드입니다.
     public static void main(String[] args) {
-        Solution sol = new Solution();
+    	Solution_5_7 sol = new Solution_5_7();
         int n = 3;
         int[][] connections = {{1, 2}, {1, 3}, {2, 3}};
         int ret = sol.solution(n, connections);

@@ -1,6 +1,8 @@
+package CodingTest.CORSPro.Level1;
+
 import java.util.*;
 
-class Solution {
+class Solution_5_3 {
 	public void swap(int[] numbers, int i, int j) {
 		int tmp = numbers[i];
 		numbers[i] = numbers[j];
@@ -15,7 +17,7 @@ class Solution {
         swap(numbers, mid, numbers.length-1);
 
         int left = mid + 1;
-        int right = numbers.length - 1;
+        int right = numbers.length - 2;
         while(left <= right) {
         	swap(numbers, left, right);
         	left = left + 1;
@@ -28,7 +30,7 @@ class Solution {
 
     // 아래는 테스트케이스 출력을 해보기 위한 main 메소드입니다. 아래에는 잘못된 부분이 없으니 위의 코드만 수정하세요.
     public static void main(String[] args) {
-    	Solution sol = new Solution();
+    	Solution_5_3 sol = new Solution_5_3();
     	int[] numbers = {7, 3, 4, 1, 2, 5, 6};
     	int[] ret = sol.solution(numbers);
 
