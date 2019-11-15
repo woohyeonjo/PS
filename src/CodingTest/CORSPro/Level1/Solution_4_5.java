@@ -1,15 +1,17 @@
-class Solution {
+package CodingTest.CORSPro.Level1;
+
+class Solution_4_5 {
     public String reverse(String number) {
         String reverseNumber = "";
         for(int i = number.length()-1; i >= 0; i--)
-            @@@;
+            reverseNumber += number.charAt(i);
         return reverseNumber;
     }
 
     public String solution(int n) {
         String answer = "";
         for(int i = 0; i < n; i++) {
-            answer += Integer.toString(@@@);
+            answer += Integer.toString(i + 1);
             answer = reverse(answer);
         }
         return answer;
@@ -17,7 +19,7 @@ class Solution {
 
     // 아래는 테스트케이스 출력을 해보기 위한 main 메소드입니다.    
     public static void main(String[] args) {
-        Solution sol = new Solution();
+    	Solution_4_5 sol = new Solution_4_5();
         int n = 5;
         String ret = sol.solution(n);
         

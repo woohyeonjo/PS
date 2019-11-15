@@ -1,6 +1,8 @@
+package CodingTest.CORSPro.Level1;
+
 import java.util.*;
 
-class Solution {    
+class Solution_4_2 {    
     public String solution(String s) {
         s = s.toLowerCase();
         String answer = "";
@@ -14,7 +16,7 @@ class Solution {
                 answer += previous;
                 answer += counter;
                 counter = 1;
-                previous = s.charAt(0);
+                previous = s.charAt(i);
             }
         }
         answer += previous;
@@ -24,7 +26,7 @@ class Solution {
     
     // 아래는 테스트케이스 출력을 해보기 위한 코드입니다. 아래에는 잘못된 부분이 없으니, 위의 코드만 수정하세요.
     public static void main(String[] args) {
-        Solution sol = new Solution();
+    	Solution_4_2 sol = new Solution_4_2();
         String s = new String("YYYYYbbbBbbBBBMmmM");
         String ret = sol.solution(s);
         

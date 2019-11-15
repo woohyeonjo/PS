@@ -1,6 +1,8 @@
+package CodingTest.CORSPro.Level1;
+
 import java.util.Arrays;
 
-class Solution {
+class Solution_4_7 {
     class Unit {
         public int HP;
         public Unit() {
@@ -9,41 +11,41 @@ class Solution {
         public void underAttack(int damage) { }
     }
 
-    class Monster @@@ {
+    class Monster extends Unit {
         public int attackPoint;
         public Monster(int attackPoint) {
             this.attackPoint = attackPoint;
         }
-        @@@ {
+        public void underAttack(int damage) {
             this.HP -= damage;
         }
-        @@@ {
+        public int attack() {
             return attackPoint;
         }
     }
 
-    class Warrior @@@ {
+    class Warrior extends Unit {
         public int attackPoint;
         public Warrior(int attackPoint) {
             this.attackPoint = attackPoint;
         }
-        @@@ {
+        public void underAttack(int damage) {
             this.HP -= damage;
         }
-        @@@ {
+        public int attack() {
             return attackPoint;
         }
     }
 
-    class Healer @@@ {
+    class Healer extends Unit {
         public int healingPoint;
         public Healer(int healingPoint) { 
             this.healingPoint = healingPoint;
         }
-        @@@ {
+        public void underAttack(int damage) {
             this.HP -= damage;
         }
-        @@@ {
+        public void healing(Unit unit) {
             unit.HP += healingPoint;
         }
     }
@@ -69,7 +71,7 @@ class Solution {
 
     // 아래는 테스트케이스 출력을 해보기 위한 main 메소드입니다.
     public static void main(String[] args) {
-        Solution sol = new Solution();
+    	Solution_4_7 sol = new Solution_4_7();
         int monsterAttackPoint = 100;
         int warriorAttackPoint = 90;
         int healingPoint = 30;

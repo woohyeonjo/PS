@@ -1,14 +1,16 @@
-class Solution {
+package CodingTest.CORSPro.Level1;
+
+class Solution_4_3 {
     public long solution(int oneDayPrice, int multiDay, int multiDayPrice, long n){
         if(oneDayPrice * multiDay <= multiDayPrice)
             return n * oneDayPrice;
         else
-            return (n % multiDay) * multiDayPrice + (n / multiDay) * oneDayPrice;
+            return (n / multiDay) * multiDayPrice + (n % multiDay) * oneDayPrice;
     }
     
     // 아래는 테스트케이스 출력을 해보기 위한 코드입니다. 아래에는 잘못된 부분이 없으니, 위의 코드만 수정하세요.
     public static void main(String[] args) {        
-        Solution sol = new Solution();
+    	Solution_4_3 sol = new Solution_4_3();
  
         int oneDayPrice1 = 3;
         int multiDay1 = 5;

@@ -1,8 +1,28 @@
+package CodingTest.CORSPro.Level1;
+
 import java.util.*;
 import javafx.util.*;
 
-class Solution {
+class Solution_4_4 {
     public static final int n = 4; 
+    
+    class Pair<A, B> {
+    	A key;
+    	B value;
+    	
+    	public Pair(A key, B value) {
+    		this.key = key;
+    		this.value = value;
+    	}
+    	
+    	public A getKey() {
+    		return this.key;
+    	}
+    	
+    	public B getValue() {
+    		return this.value;
+    	}
+    }
 
     public ArrayList<Integer> func_a(int[][] matrix) {
         ArrayList<Integer> ret = new ArrayList<Integer>();
@@ -55,12 +75,12 @@ class Solution {
     public int[] solution(int[][] matrix) {
         int[] answer = new int[6];
         int ansIdx = 0;
-        ArrayList<Pair<Integer, Integer> > coords = func_@@@(@@@);
-        ArrayList<Integer> nums = func_@@@(@@@);
+        ArrayList<Pair<Integer, Integer> > coords = func_b(matrix);
+        ArrayList<Integer> nums = func_a(matrix);
         
         matrix[coords.get(0).getKey()][coords.get(0).getValue()] = nums.get(0);
         matrix[coords.get(1).getKey()][coords.get(1).getValue()] = nums.get(1);
-        if (func_@@@(@@@)) {
+        if (func_c(matrix)) {
             for (int i = 0; i <= 1; i++) {
                 answer[ansIdx++] = coords.get(i).getKey() + 1;
                 answer[ansIdx++] = coords.get(i).getValue() + 1;
@@ -81,7 +101,7 @@ class Solution {
     
     // 아래는 테스트케이스 출력을 해보기 위한 main 메소드입니다.    
     public static void main(String[] args) {
-        Solution sol = new Solution();
+    	Solution_4_4 sol = new Solution_4_4();
         int[][] matrix = {{16,2,3,13},{5,11,10,0},{9,7,6,12},{0,14,15,1}};
         int[] ret = sol.solution(matrix);
         

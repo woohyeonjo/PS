@@ -1,6 +1,8 @@
+package CodingTest.CORSPro.Level1;
+
 import java.util.Arrays;
 
-class Solution {
+class Solution_4_6 {
     public int power(int base, int exponent) {
         int val = 1;
         for (int i = 0; i < exponent; i++) 
@@ -15,8 +17,8 @@ class Solution {
             int current = i;
             int calculated = 0;
             while (current != 0) {
-                @@@;
-                @@@;
+            	calculated += power(current % 10, k);
+            	current /= 10;
             }
             if (calculated == i)
                 answer[count++] = i;
@@ -30,7 +32,7 @@ class Solution {
 
     // 아래는 테스트케이스 출력을 해보기 위한 main 메소드입니다.
     public static void main(String[] args) {
-        Solution sol = new Solution();
+    	Solution_4_6 sol = new Solution_4_6();
         int k = 3;
         int[] ret = sol.solution(k);
 

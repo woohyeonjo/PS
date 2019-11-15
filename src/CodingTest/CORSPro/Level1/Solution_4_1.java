@@ -1,13 +1,15 @@
+package CodingTest.CORSPro.Level1;
+
 import java.util.*;
 
-public class Solution {
+public class Solution_4_1 {
     String[] vowels = {"A", "E", "I", "O", "U"};
     ArrayList<String> words;
     public void create_words(int lev, String str) {
         words.add(str);
         for (int i = 0; i < 5; i++) {
             if (lev < 5) {
-                create_words(lev, str.concat(vowels[i]));
+                create_words(lev + 1, str.concat(vowels[i]));
             }
         }
     }
@@ -27,7 +29,7 @@ public class Solution {
 
     // 아래는 테스트케이스 출력을 해보기 위한 코드입니다. 아래에는 잘못된 부분이 없으니, 위의 코드만 수정하세요.
     public static void main(String[] args) {
-        Solution sol = new Solution();
+    	Solution_4_1 sol = new Solution_4_1();
         String word1 = new String("AAAAE");
         int ret1 = sol.solution(word1);
 
