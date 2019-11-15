@@ -1,4 +1,6 @@
-class Solution {
+package CodingTest.COSPro.Level1;
+
+class Solution_6_5 {
     public int solution(int[][] board) {
         int answer = 0;
 
@@ -12,7 +14,7 @@ class Solution {
                 else if(i != 0 && j == 0)
                     coins[i][j] = board[i][j] + coins[i-1][j];
                 else
-                    coins[i][j] = board[i][j] + Math.max(coins[i][j], coins[i-1][j-1]);
+                    coins[i][j] = board[i][j] + Math.max(coins[i - 1][j], coins[i][j - 1]);
             }
         }
 
@@ -22,7 +24,7 @@ class Solution {
 
     // 아래는 테스트케이스 출력을 해보기 위한 main 메소드입니다. 아래에는 잘못된 부분이 없으니 위의 코드만 수정하세요.
     public static void main(String[] args) {
-        Solution sol = new Solution();
+    	Solution_6_5 sol = new Solution_6_5();
         int[][] board = {{6, 7, 1, 2}, {3, 5, 3, 9}, {6, 4, 5, 2}, {7, 3, 2, 6}};
         int ret = sol.solution(board);
 

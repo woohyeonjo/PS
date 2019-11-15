@@ -4,9 +4,51 @@ package CodingTest.COSPro.Level1;
 import java.util.*;
 
 class Solution_6_1 {
+	
+	class Cell {
+		int r, c;
+		int day;
+		
+		public Cell (int r, int c, int day) {
+			this.r = r;
+			this.c = c;
+			this.day = day;
+		}
+	}
+	
     public int solution(int n, int[][] garden) {
         // 여기에 코드를 작성해주세요.
         int answer = 0;
+        
+        int[][] dir = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+        Queue<Cell> q = new LinkedList<>();
+        
+        for(int r = 0 ; r < n ; ++r) {
+        	for(int c = 0 ; c < n ; ++c) {
+        		if(garden[r][c] == 1) {
+        			q.offer(new Cell(r, c, 0));
+        		}
+        	}
+        }
+        
+        while(!q.isEmpty()) {
+        	Cell cell = q.poll();
+        	
+        	answer = cell.day > answer ? cell.day : answer;
+        	
+        	int nr, nc;
+        	for(int i = 0 ; i < 4 ; ++i) {
+        		nr = cell.r + dir[i][0];
+        		nc = cell.c + dir[i][1];
+        		if(nr >= 0 && nr < n && nc >= 0 && nc < n && garden[nr][nc] == 0) {
+        			garden[nr][nc] = 1;
+        			q.offer(new Cell(nr, nc, cell.day + 1));
+        		}
+        	}
+        	
+        }
+        
+        
         return answer;
     }
     

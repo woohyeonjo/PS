@@ -1,4 +1,6 @@
-class Solution {
+package CodingTest.COSPro.Level1;
+
+class Solution_6_8 {
     final int INC = 0;
     final int DEC = 1;
     int[] func_a(int[] arr){
@@ -38,15 +40,15 @@ class Solution {
     }
     
     public int solution(int[] S) {
-        int[] check = func_@@@(@@@);
-        int[] dp = func_@@@(@@@);
-        int answer = func_@@@(@@@);
+        int[] check = func_b(S);
+        int[] dp = func_a(check);
+        int answer = func_c(dp);
         return answer;
     }
 
     // 아래는 테스트케이스 출력을 해보기 위한 main 메소드입니다.
     public static void main(String[] args) {
-        Solution sol = new Solution();
+    	Solution_6_8 sol = new Solution_6_8();
         int[] S1 = {2, 5, 7, 3, 4, 6, 1, 8, 9};
         int ret1 = sol.solution(S1);
 

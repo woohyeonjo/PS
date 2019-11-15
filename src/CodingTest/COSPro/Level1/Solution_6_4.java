@@ -1,4 +1,6 @@
-class Solution {
+package CodingTest.COSPro.Level1;
+
+class Solution_6_4 {
     public int solution(int n, int mix, int k) {
         int answer = 0;
 
@@ -14,7 +16,7 @@ class Solution {
                 if(i < n/2)
                     cardA[i] = card[i];
                 else
-                    cardB[i] = card[i];
+                    cardB[i - n/2] = card[i];
             }
 
             for(int i = 0; i < n; i++) {
@@ -32,7 +34,7 @@ class Solution {
 
     // 아래는 테스트케이스 출력을 해보기 위한 main 메소드입니다. 아래에는 잘못된 부분이 없으니 위의 코드만 수정하세요.
     public static void main(String[] args) {
-    	Solution sol = new Solution();
+    	Solution_6_4 sol = new Solution_6_4();
     	int n = 6;
     	int mix = 3;
     	int k = 3;

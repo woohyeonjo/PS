@@ -1,15 +1,17 @@
+package CodingTest.COSPro.Level1;
+
 import java.util.*;
 import java.util.ArrayList;
 
-class Solution {
+class Solution_6_9 {
     Integer func_a(ArrayList<Integer> stack) {
         Integer item = stack.remove(stack.size() - 1);
         return item;
     }
     
     void func_b(ArrayList<Integer> stack1, ArrayList<Integer> stack2) {
-        while(!func_@@@(@@@)) {
-            Integer item = func_@@@(@@@);
+        while(!func_c(stack1)) {
+            Integer item = func_a(stack1);
             stack2.add(item);
         }
     }
@@ -19,16 +21,16 @@ class Solution {
     }
     
     public int solution(ArrayList<Integer> stack1, ArrayList<Integer> stack2) {
-        if(func_@@@(@@@)) {
-            func_@@@(@@@);
+        if(func_c(stack2)) {
+            func_b(stack1, stack2);
         }
-        Integer answer = (int)func_@@@(@@@);
+        Integer answer = (int)func_a(stack2);
         return answer;
     }
     
     // 아래는 테스트케이스 출력을 해보기 위한 main 메소드입니다.    
     public static void main(String[] args) {
-        Solution sol = new Solution();
+    	Solution_6_9 sol = new Solution_6_9();
         
         ArrayList<Integer> stack1_1 = new ArrayList<Integer>();
         ArrayList<Integer> stack2_1 = new ArrayList<Integer>();

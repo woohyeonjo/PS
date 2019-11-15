@@ -1,22 +1,24 @@
-class Solution {
+package CodingTest.COSPro.Level1;
+
+class Solution_6_7 {
     public int solution(int K, int[] numbers, String[] UpDown) {
         int left = 1;
         int right = K;
         for(int i = 0; i < numbers.length; i++){
             int num = numbers[i];
             if(UpDown[i].equals("UP"))
-                left = @@@;
+                left = num + 1 > left ? num + 1 : left;
             else if(UpDown[i].equals("DOWN"))
-                right = @@@;
+                right = right > num - 1 ? num - 1 : right;
             else if(UpDown[i].equals("RIGHT"))
                 return 1;
         }
-        return @@@;
+        return right - left + 1;
     }
 
     // 아래는 테스트케이스 출력을 해보기 위한 main 메소드입니다.
     public static void main(String[] args) {
-        Solution sol = new Solution();
+    	Solution_6_7 sol = new Solution_6_7();
         int K1 = 10;
         int[] numbers1 = {4, 9, 6};
         String[] UpDown1 = {new String("UP"), new String("DOWN"), new String("UP")};
