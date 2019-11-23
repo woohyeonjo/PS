@@ -32,10 +32,6 @@ class Solution3 {
       }
 
       permutation(0);
-//      for(int num : resultSet) {
-//         System.out.print(num + " ");
-//      }
-//      System.out.println();
 
       return resultSet.size();
    }
