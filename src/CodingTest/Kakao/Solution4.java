@@ -14,14 +14,12 @@ public class Solution4 {
       }
    }
 
-   static long[] next;
    static int size;
    static HashMap<Long, Long> hm;
 
    public static long[] solution(long k, long[] room_number) {
 
       size = room_number.length;
-      next = new long[size];
       hm = new HashMap<>();
       long[] answer = new long[size];
 
@@ -30,9 +28,7 @@ public class Solution4 {
             hm.put(room_number[i], room_number[i] + 1);
             answer[i] = room_number[i];
          } else {
-            long temp = find(room_number[i]);
-            
-//            System.out.println(temp);
+            long temp = find(room_number[i]);            
             hm.put(temp, temp + 1);
             hm.put(room_number[i], temp+1);
             answer[i] = temp;
