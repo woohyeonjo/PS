@@ -4,7 +4,7 @@ package BOJ;
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class B14499 {
+public class B14499_주사위굴리기_1 {
 	static class Dice {
 		int r, c;
 		int top, bottom;
