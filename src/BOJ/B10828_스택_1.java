@@ -3,7 +3,7 @@ package BOJ;
 
 import java.util.Scanner;
 
-public class B10828_2 {
+public class B10828_스택_1 {
 	
 	final static int MAX_SIZE = 10000;
 	static int[] stack = new int[MAX_SIZE];
