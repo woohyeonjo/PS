@@ -1,6 +1,5 @@
 package BOJ;
 
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class B10974 {

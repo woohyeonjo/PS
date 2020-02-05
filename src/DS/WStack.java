@@ -1,11 +1,11 @@
 package DS;
 
-public class Stack {
+public class WStack {
 
     static Object[] memory;
     static int top;
 
-    public Stack(int size) {
+    public WStack(int size) {
         memory = new Object[size];
         top = -1;
     }
@@ -27,7 +27,7 @@ public class Stack {
     }
 
     public static void main(String[] args) {
-        Stack stack = new Stack(10);
+        WStack stack = new WStack(10);
 
         System.out.println(stack.isEmpty());
         stack.push(new Integer(1));

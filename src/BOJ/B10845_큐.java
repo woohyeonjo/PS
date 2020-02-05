@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class B10845_큐 {
-	static class Queue {
+	private static class Queue {
 		int front, rear;
 		int[] memory;
 		
