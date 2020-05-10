@@ -1,4 +1,4 @@
-package CodingTest.Kakao;
+package CodingTest.Kakao_winterinternship_19;
 
 public class Solution5 {
 	public static void main(String[] args) {
