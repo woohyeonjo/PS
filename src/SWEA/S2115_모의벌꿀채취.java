@@ -57,7 +57,6 @@ public class S2115_모의벌꿀채취 {
 				total += income[i];
 			}
 			 
-//			System.out.println("수익 : " + total);
 			ans = total > ans ? total : ans;
 			
 			return;
@@ -75,7 +74,7 @@ public class S2115_모의벌꿀채취 {
 					selected[r][c + i] = true;
 					worker[idx][i] = map[r][c + i];
 				}
-//				System.out.println("[" + r + ", " + c + "]의 벌통 선택 ");
+
 				selectHoneyComb(idx + 1, r * 100 + c);
 				
 				// 벌통 선택 해제
@@ -99,7 +98,4 @@ public class S2115_모의벌꿀채취 {
 			}
 		}
 	}
-
-	
-
 }
