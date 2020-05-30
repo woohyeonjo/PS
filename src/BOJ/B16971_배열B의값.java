@@ -49,8 +49,8 @@ public class B16971_배열B의값 {
 				row[change[0]] = change[1];
 				row[change[1]] = change[0];
 				value = calValue();
-//				System.out.println(change[0] + "행과 " + change[1] + "행을 교환합니다. " );
-//				System.out.println(value);
+				System.out.println(change[0] + "행과 " + change[1] + "행을 교환합니다. " );
+				System.out.println(value);
 				ans = value > ans ? value : ans;
 				row[change[0]] = change[0];
 				row[change[1]] = change[1];
@@ -59,11 +59,11 @@ public class B16971_배열B의값 {
 				col[change[0]] = change[1];
 				col[change[1]] = change[0];
 				value = calValue();
-//				System.out.println(change[0] + "열과 " + change[1] + "열을 교환합니다. " );
-//				System.out.println(value);
+				System.out.println(change[0] + "열과 " + change[1] + "열을 교환합니다. " );
+				System.out.println(value);
 				ans = value > ans ? value : ans;
 				col[change[0]] = change[0];
-				col[change[1]] = change[1];
+				row[change[1]] = change[1];
 			}
 			
 			return;
