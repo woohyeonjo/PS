@@ -38,7 +38,7 @@ public class S4008_모의숫자만들기 {
 				numbers[i] = Integer.parseInt(st.nextToken());
 			}
 			
-			combination(0);
+			permutation(0);
 			
 			ans = max - min;
 			
@@ -47,7 +47,7 @@ public class S4008_모의숫자만들기 {
 		
 	}
 
-	private static void combination(int idx) {
+	private static void permutation(int idx) {
 		
 		if(idx == N - 1) {
 			int result = cal();
@@ -62,7 +62,7 @@ public class S4008_모의숫자만들기 {
 			if(cnt[i] > 0 ) {
 				cnt[i]--;
 				op[idx] = i;
-				combination(idx + 1);
+				permutation(idx + 1);
 				cnt[i]++;
 			}
 		}
