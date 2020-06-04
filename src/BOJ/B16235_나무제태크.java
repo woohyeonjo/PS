@@ -7,7 +7,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class B16235 {
+public class B16235_나무제태크 {
 	static ArrayList<Tree>[][] ground;
 	static int[][] soil;
 	static int[][] nutrition;
