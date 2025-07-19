@@ -1,0 +1,17 @@
+{
+  "name": "cpp-env",
+  "image": "mcr.microsoft.com/devcontainers/cpp:0-ubuntu-22.04",
+  "postCreateCommand": "sudo apt update && sudo apt install -y g++ gdb clangd",
+  "settings": {
+    "terminal.integrated.defaultProfile.linux": "bash"
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-vscode.cpptools",                   // C/C++ (디버깅, IntelliSense)
+        "vadimcn.vscode-lldb",                  // LLDB 디버거 (macOS 호환)
+        "formulahendry.code-runner"             // 코드 빠르게 실행 (Ctrl+Alt+N)
+      ]
+    }
+  }
+}
