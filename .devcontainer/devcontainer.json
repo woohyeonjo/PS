@@ -1,7 +1,8 @@
 {
   "name": "cpp-env",
   "image": "mcr.microsoft.com/devcontainers/cpp:0-ubuntu-22.04",
-  "postCreateCommand": "sudo apt update && sudo apt install -y g++ gdb clangd",
+  "postCreateCommand": "sudo apt update && sudo apt install -y g++ gdb clangd git-lfs && git lfs install",
+
   "settings": {
     "terminal.integrated.defaultProfile.linux": "bash"
   },
