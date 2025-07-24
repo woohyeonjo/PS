@@ -1,25 +1,54 @@
 {
-  "version": "0.2.0",
-  "configurations": [
-    {
-      "name": "Debug Active File",
-      "type": "cppdbg",
-      "request": "launch",
-      "program": "${fileDirname}/${fileBasenameNoExtension}",
-      "args": [],
-      "stopAtEntry": false,
-      "cwd": "${fileDirname}",
-      "environment": [],
-      "externalConsole": false,
-      "MIMode": "gdb",
-      "setupCommands": [
+    "version": "0.2.0",
+    "configurations": [
         {
-          "description": "Enable pretty-printing",
-          "text": "-enable-pretty-printing",
-          "ignoreFailures": true
+            "name": "C/C++ 디버그",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${fileDirname}/${fileBasenameNoExtension}",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${fileDirname}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "miDebuggerPath": "/usr/bin/gdb",
+            "setupCommands": [
+                {
+                    "description": "gdb에서 pretty-printing 활성화",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description": "모든 예외에서 중단 설정",
+                    "text": "-gdb-set breakpoint pending on",
+                    "ignoreFailures": true
+                }
+            ],
+            "preLaunchTask": "C/C++ 빌드",
+            "internalConsoleOptions": "openOnSessionStart",
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "C/C++ 디버그 (입력 필요)",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${fileDirname}/${fileBasenameNoExtension}",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${fileDirname}",
+            "environment": [],
+            "externalConsole": true,
+            "MIMode": "gdb",
+            "miDebuggerPath": "/usr/bin/gdb",
+            "setupCommands": [
+                {
+                    "description": "gdb에서 pretty-printing 활성화",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
+            "preLaunchTask": "C/C++ 빌드"
         }
-      ],
-      "preLaunchTask": "build active file"
-    }
-  ]
+    ]
 }

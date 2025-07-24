@@ -1,22 +1,62 @@
 {
-  "version": "2.0.0",
-  "tasks": [
-    {
-      "label": "build active file",
-      "type": "shell",
-      "command": "g++",
-      "args": [
-        "-g",
-        "${file}",
-        "-o",
-        "${fileDirname}/${fileBasenameNoExtension}"
-      ],
-      "group": {
-        "kind": "build",
-        "isDefault": true
-      },
-      "problemMatcher": ["$gcc"],
-      "detail": "컴파일 현재 파일"
-    }
-  ]
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "type": "cppbuild",
+            "label": "C/C++ 빌드",
+            "command": "/usr/bin/g++",
+            "args": [
+                "-fdiagnostics-color=always",
+                "-g",
+                "-std=c++17",
+                "-Wall",
+                "-Wextra",
+                "${file}",
+                "-o",
+                "${fileDirname}/${fileBasenameNoExtension}"
+            ],
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "problemMatcher": ["$gcc"],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "detail": "C/C++ 파일을 g++로 컴파일합니다"
+        },
+        {
+            "type": "shell",
+            "label": "C/C++ 실행",
+            "command": "${fileDirname}/${fileBasenameNoExtension}",
+            "group": "test",
+            "dependsOn": "C/C++ 빌드",
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": false
+            },
+            "detail": "빌드 후 실행 파일을 실행합니다"
+        },
+        {
+            "type": "shell",
+            "label": "C/C++ 빌드 및 실행",
+            "dependsOrder": "sequence",
+            "dependsOn": [
+                "C/C++ 빌드",
+                "C/C++ 실행"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": false
+            },
+            "detail": "C/C++ 파일을 빌드하고 바로 실행합니다"
+        }
+    ]
 }
