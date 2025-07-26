@@ -1,18 +1,59 @@
 {
-  "name": "cpp-env",
-  "image": "mcr.microsoft.com/devcontainers/cpp:0-ubuntu-22.04",
-  "postCreateCommand": "sudo apt update && sudo apt install -y g++ gdb clangd git-lfs && git lfs install",
+“name”: “Claude Code Development Environment”,
+“image”: “mcr.microsoft.com/devcontainers/javascript-node:20”,
 
-  "settings": {
-    "terminal.integrated.defaultProfile.linux": "bash"
-  },
-  "customizations": {
-    "vscode": {
-      "extensions": [
-        "ms-vscode.cpptools",                   // C/C++ (디버깅, IntelliSense)
-        "vadimcn.vscode-lldb",                  // LLDB 디버거 (macOS 호환)
-        "formulahendry.code-runner"             // 코드 빠르게 실행 (Ctrl+Alt+N)
-      ]
-    }
-  }
+“features”: {
+“ghcr.io/devcontainers/features/git:1”: {},
+“ghcr.io/devcontainers/features/github-cli:1”: {},
+“ghcr.io/devcontainers/features/docker-in-docker:2”: {}
+},
+
+“postCreateCommand”: “bash .devcontainer/setup_claude_code.sh”,
+
+“customizations”: {
+“vscode”: {
+“extensions”: [
+“ms-vscode.vscode-typescript-next”,
+“esbenp.prettier-vscode”,
+“ms-vscode.vscode-json”,
+“GitHub.copilot”,
+“ms-python.python”,
+“ms-toolsai.jupyter”
+],
+“settings”: {
+“terminal.integrated.defaultProfile.linux”: “bash”,
+“terminal.integrated.profiles.linux”: {
+“bash”: {
+“path”: “/bin/bash”
+}
+},
+“editor.formatOnSave”: true,
+“editor.defaultFormatter”: “esbenp.prettier-vscode”
+}
+}
+},
+
+“forwardPorts”: [3000, 8080, 8081, 5000],
+
+“portsAttributes”: {
+“3000”: {
+“label”: “Frontend Dev Server”,
+“protocol”: “http”
+},
+“8080”: {
+“label”: “Backend API”,
+“protocol”: “http”
+}
+},
+
+“containerEnv”: {
+“NODE_ENV”: “development”,
+“CLAUDE_CODE_ENV”: “codespaces”
+},
+
+“remoteUser”: “node”,
+
+“mounts”: [
+“source=claude-code-cache,target=/home/node/.claude,type=volume”
+]
 }
